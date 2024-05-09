@@ -142,6 +142,7 @@ class Ball
           }
           
           bloco.vida = 0;
+          return;
         }
         
         
