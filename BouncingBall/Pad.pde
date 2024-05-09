@@ -63,9 +63,17 @@ class Pad
  void update()
  {
    if(!keyPressed) this.velocidade.x = 0;
+   //PVector new_position = this.posicao.add(velocidade);
    this.posicao.add(velocidade);
    this.min_x = this.posicao.x - this.centro;
    this.max_x = this.posicao.x + this.centro;
+   if (this.min_x < MIN_BORDER_X || this.max_x > MAX_BORDER_X)
+   {
+     this.posicao.sub(velocidade);
+     this.min_x = -this.posicao.x + this.centro;
+     this.max_x = this.posicao.x - this.centro;
+     return;
+   }
  }
   
   void draw()
