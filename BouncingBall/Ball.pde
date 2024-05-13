@@ -38,11 +38,11 @@ class Ball
     //println("pad:", pad.posicao.x, pad.posicao.y, pad.min_x, pad.max_x, "ponto de contacto:", ponto_contacto);
     
     //this.posicao.y > pad.min_y && pad.min_x - this.posicao.x <= 0 && pad.max_x - this.posicao.x >= 0
-    
+    println(teta, degrees(teta));
     if (((ponto_contacto - this.posicao.x)*(ponto_contacto - this.posicao.x)) + ((pad.min_y-this.posicao.y)*(pad.min_y-this.posicao.y)) <= this.raio*this.raio)
     {
       this.velocidade.y *= -1;
-      this.velocidade.x = teta;
+      this.velocidade.x = BOLA_MODULO_VEL * sin(teta);
       this.posicao.y = pad.min_y - this.raio;
     }
   }
@@ -148,6 +148,13 @@ class Ball
         
       }
     }
+  }
+  
+  void detetar_colisoes(Border border, Pad pad, Block[][] blocos)
+  {
+    colisao_pad(pad);
+    colisao_parede(border);
+    colisao_blocos(blocos);
   }
   
   void update() {

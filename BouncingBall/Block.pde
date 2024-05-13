@@ -40,7 +40,8 @@ class Block
   void draw()
   {
     if (this.vida == 0) return;
-    fill(this.cor);
+    if (this.exposto) fill(RED);
+    else fill(this.cor);
     stroke(0);
     strokeWeight(LARGURA_BLOCO * 0.01);
     rectMode(CENTER);
