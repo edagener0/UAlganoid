@@ -29,8 +29,8 @@ class Block
     this.min_x = this.x - this.largura / 2;
     this.max_x = this.x + this.largura / 2;
     
-    this.min_y = this.y - this.altura / 2;
-    this.max_y = this.y + this.altura / 2;
+    this.min_y = this.y - this.altura / 2 + ALTURA_HEADER;
+    this.max_y = this.y + this.altura / 2 + ALTURA_HEADER;
     
     this.cor = cor;
     this.vida = vida;
@@ -45,7 +45,7 @@ class Block
     stroke(0);
     strokeWeight(LARGURA_BLOCO * 0.01);
     rectMode(CENTER);
-    rect(this.x, this.y, this.largura, this.altura);
+    rect(this.x, this.y + ALTURA_HEADER, this.largura, this.altura);
     noStroke();
   }
   
