@@ -50,7 +50,7 @@ class Blocks
         }
         if (baixo)
         {
-          println("baixo:", i, j);
+          //println("baixo:", i, j);
           if (this.blocos[i + 1][j].vida == 0)
           {
             this.blocos[i][j].exposto = true;
