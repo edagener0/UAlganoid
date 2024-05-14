@@ -23,8 +23,8 @@ class Pad
   
   Pad (float x, float y, float largura, float altura, color cor)
   {
-    posicao = new PVector(x, y);
-    velocidade = new PVector(0, 0);
+    this.posicao = new PVector(x, y);
+    this.velocidade = new PVector(0, 0);
     
     this.largura = largura;
     this.cor = cor;
@@ -60,9 +60,21 @@ class Pad
    this.max_x = this.posicao.x + this.centro;
  }*/
  
+ void mover_direita()
+ {
+   this.velocidade.x = 1;
+   this.velocidade.setMag(PAD_MODULO_VEL);
+ }
+ 
+ void mover_esquerda()
+ {
+   this.velocidade.x = -1;
+   this.velocidade.setMag(PAD_MODULO_VEL);
+ }
+ 
  void update()
  {
-   if(!keyPressed) this.velocidade.x = 0;
+   if (!keyPressed) this.velocidade.x = 0;
    PVector nova_posicao = this.posicao.copy();
    float min_x_temp, max_x_temp;
    nova_posicao = nova_posicao.add(velocidade);
