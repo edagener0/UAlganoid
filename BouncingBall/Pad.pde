@@ -82,13 +82,18 @@ class Pad
    max_x_temp = nova_posicao.x + this.centro;
    if (min_x_temp < MIN_BORDER_X || max_x_temp > MAX_BORDER_X)
    {
-     println("passou");
+     //println("passou");
      return;
    }
    this.min_x = min_x_temp;
    this.max_x = max_x_temp;
    this.posicao.add(velocidade);
    
+ }
+ 
+ void reset()
+ {
+   this.posicao.x = POSICAO_X_PAD;
  }
   
   void draw()

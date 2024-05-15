@@ -76,22 +76,45 @@ class Blocks
       }
     }
   }
-  void inicializar_blocos()
+  
+  void inicializar_blocos(String caminho_ficheiro)
   {
     int offset_x = LARGURA_BLOCO;
     int offset_y = ALTURA_BLOCO + ALTURA_BLOCO / 2;
     //Block bloco = new Block (LARGURA_BLOCO, ALTURA_BLOCO + ALTURA_BLOCO / 2, LARGURA_BLOCO, GREEN, 5);
     //bloco.draw();
+    
+    // ver defensividade
+    Ficheiro ficheiro = new Ficheiro(caminho_ficheiro);
+    String[][] tipos_blocos = ficheiro.parse_file(",");
+    
+    //println(tipos_blocos[0]);
+    max_score = 0;
+    score_atual = 0;
+    
     for (int i = 0; i < ROWS; i++)
     {
       for (int j = 0; j < COLS; j++)
       {
-        blocos[i][j] = new Block (offset_x, offset_y, LARGURA_BLOCO, GREEN, 1, false);
+        //println("bloco atual:", tipos_blocos[i][j]);
+        blocos[i][j] = new Block (offset_x, offset_y, LARGURA_BLOCO, int(tipos_blocos[i][j]), false);
         offset_x += LARGURA_BLOCO;
+        max_score += blocos[i][j].score;
       }
       offset_x = LARGURA_BLOCO;
       offset_y += ALTURA_BLOCO;
     }
+    
+    println(max_score);
+  }
+  
+  void carregar_nivel(int nivel, BigMessage message)
+  {
+    if (nivel > MAX_NUMERO_NIVEIS) return;
+    String caminho_nivel = "level_" + nivel + ".lvl";
+    println(caminho_nivel);
+    inicializar_blocos(caminho_nivel);
+    message.display("Level " + nivel, BIGMESSAGE_COLOR, 2500);
   }
   
   void desenhar_blocos()

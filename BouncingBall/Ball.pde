@@ -27,7 +27,7 @@ class Ball
     float distancia = this.posicao.x - pad.posicao.x;
     
     //float teta = 1.285714286 * distancia;
-    println(45 / (LARGURA_PAD));
+    //println(45 / (LARGURA_PAD));
     float teta = (90 / (pad.max_x - pad.min_x)) * distancia;
     
     float ponto_contacto = 0;
@@ -60,7 +60,9 @@ class Ball
     //println(teta, degrees(teta));
     if (((ponto_contacto - this.posicao.x)*(ponto_contacto - this.posicao.x)) + ((pad.min_y-this.posicao.y)*(pad.min_y-this.posicao.y)) <= this.raio*this.raio)
     {
+      println("1");
       this.velocidade.y *= -1;
+      pad_bounce.play();
       //this.velocidade.rotate(PI);
       //this.velocidade.rotate(teta);
       PVector.fromAngle(teta - HALF_PI, this.velocidade);
@@ -68,27 +70,34 @@ class Ball
       this.posicao.y = pad.min_y - this.raio;
       
     }
-    println(degrees(teta), degrees(velocidade.heading()));
+    //println(degrees(teta), degrees(velocidade.heading()));
   }
   
-  void colisao_parede()
+  void colisao_parede(Pad pad, Header header)
   {
     if (((MIN_BORDER_Y-this.posicao.y)*(MIN_BORDER_Y-this.posicao.y)) <= this.raio*this.raio)
     {
       this.velocidade.y *= -1;
       this.posicao.y = MIN_BORDER_Y + this.raio;
-    } else if (((MIN_BORDER_X - this.posicao.x)*(MIN_BORDER_X - this.posicao.x)) <= this.raio*this.raio)
+    }
+    else if (((MIN_BORDER_X - this.posicao.x)*(MIN_BORDER_X - this.posicao.x)) <= this.raio*this.raio)
     {
       this.velocidade.x *= -1;
       this.posicao.x = MIN_BORDER_X + this.raio;
-    } else if (((MAX_BORDER_X - this.posicao.x)*(MAX_BORDER_X - this.posicao.x)) <= this.raio*this.raio)
+    }
+    else if (((MAX_BORDER_X - this.posicao.x)*(MAX_BORDER_X - this.posicao.x)) <= this.raio*this.raio)
     {
       this.velocidade.x *= -1;
       this.posicao.x = MAX_BORDER_X - this.raio;
     }
+    else if (this.posicao.y > MAX_BORDER_Y)
+    {
+      reset(pad);
+      header.lives--;
+    }
   }
   
-  void colisao_blocos(Block[][] blocos)
+  void colisao_blocos(Block[][] blocos, Header header)
   {
     PVector nova_posicao = this.posicao.copy();
     
@@ -169,7 +178,15 @@ class Ball
             }
           }
           
-          bloco.vida = 0;
+          if (bloco.vida > 0)
+          {
+            block_hit.play();
+            bloco.vida--;
+          }
+          if (bloco.vida == 0)
+          {
+            bloco.destruir(header);
+          }
           return;
         }
         
@@ -178,16 +195,19 @@ class Ball
     }
   }
   
-  void detetar_colisoes(Pad pad, Block[][] blocos)
+  void detetar_colisoes(Pad pad, Block[][] blocos, Header header)
   {
     colisao_pad(pad);
-    colisao_parede();
-    colisao_blocos(blocos);
+    colisao_parede(pad, header);
+    colisao_blocos(blocos, header);
   }
   
-  void before_game(Pad pad, boolean game_on)
+  void before_game(Pad pad, boolean game_on, boolean lost)
   {
-    if (game_on) return;
+    if (game_on)
+    {
+      return;
+    }
     
     this.posicao.x = pad.posicao.x;
   }
@@ -213,12 +233,22 @@ class Ball
     }
   }
   
+  void reset(Pad pad)
+  {
+    this.posicao.x = pad.posicao.x;
+    this.posicao.y = POSICAO_Y_BOLA;
+    bola.velocidade.y = 0;
+    bola.velocidade.x = 0;
+    game_on = false;
+  }
+  
   void update() {
     this.posicao.add(velocidade);
   }
  
   void draw()
   {
+    
     update();
     fill(this.cor);
     circle(this.posicao.x, this.posicao.y, this.diametro);
