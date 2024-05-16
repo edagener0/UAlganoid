@@ -7,6 +7,7 @@ class Pad
   float y;
   
   float min_y;
+  float max_y;
   
   float min_x;
   float max_x;
@@ -32,6 +33,7 @@ class Pad
     this.centro = largura / 2;
     
     this.min_y = this.posicao.y - this.altura / 2;
+    this.max_y = this.posicao.y + this.altura / 2;
     this.min_x = this.posicao.x - this.largura / 2;
     this.max_x = this.posicao.x + this.largura / 2;
   }

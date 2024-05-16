@@ -7,6 +7,10 @@ class Ball
   PVector posicao;
   PVector velocidade;
   
+  boolean on_fire;
+  
+  
+  
   Ball (float x, float y, float diametro, color cor)
   {
     this.posicao = new PVector(x, y);
@@ -14,6 +18,8 @@ class Ball
     this.diametro = diametro;
     this.raio = diametro / 2;
     this.cor = cor;
+    
+    this.on_fire = false;
   }
   
   void colisao_pad(Pad pad)
@@ -146,44 +152,90 @@ class Ball
         }
         
         
+        
         if (bloco.vida != 0 && ((ponto_contacto_x - this.posicao.x)*(ponto_contacto_x - this.posicao.x)) + ((ponto_contacto_y-this.posicao.y)*(ponto_contacto_y-this.posicao.y)) <= this.raio*this.raio)
         {
-          if ((ponto_contacto_x == bloco.min_x || ponto_contacto_x == bloco.max_x) && (ponto_contacto_y == bloco.min_y || ponto_contacto_y == bloco.max_y))
+          if (!bolas.get(0).on_fire) //!bolas.get(0).on_fire
           {
-            this.velocidade.x *= -1;
-            this.velocidade.y *= -1;
+            println("primeiro");
+            if ((ponto_contacto_x == bloco.min_x || ponto_contacto_x == bloco.max_x) && (ponto_contacto_y == bloco.min_y || ponto_contacto_y == bloco.max_y))
+            {
+              
+              this.velocidade.x *= -1;
+              this.velocidade.y *= -1;
+            }
+            else if (nova_posicao.x == ponto_contacto_x)
+            {
+              this.velocidade.y *= -1;
+              if (ponto_contacto_y > bloco.y)
+              {
+                this.posicao.y = ponto_contacto_y + this.raio;
+              }
+              else if (ponto_contacto_y < bloco.y)
+              {
+                this.posicao.y = ponto_contacto_y - this.raio;
+              }
+            } 
+            else if (nova_posicao.y == ponto_contacto_y  && bloco.vida != -1)
+            {
+              this.velocidade.x *= -1;
+              if (ponto_contacto_x > bloco.x)
+              {
+                this.posicao.x = ponto_contacto_x + this.raio;
+              }
+              else if (ponto_contacto_x < bloco.x)
+              {
+                this.posicao.x = ponto_contacto_x - this.raio;
+              }
+            }
           }
-          else if (nova_posicao.x == ponto_contacto_x)
+          else if (bolas.get(0).on_fire && bloco.vida == -1)
           {
-            this.velocidade.y *= -1;
-            if (ponto_contacto_y > bloco.y)
+            println("segundo");
+            if ((ponto_contacto_x == bloco.min_x || ponto_contacto_x == bloco.max_x) && (ponto_contacto_y == bloco.min_y || ponto_contacto_y == bloco.max_y))
             {
-              this.posicao.y = ponto_contacto_y + this.raio;
+              
+              this.velocidade.x *= -1;
+              this.velocidade.y *= -1;
             }
-            else if (ponto_contacto_y < bloco.y)
+            else if (nova_posicao.x == ponto_contacto_x)
             {
-              this.posicao.y = ponto_contacto_y - this.raio;
-            }
-          } 
-          else if (nova_posicao.y == ponto_contacto_y)
-          {
-            this.velocidade.x *= -1;
-            if (ponto_contacto_x > bloco.x)
+              this.velocidade.y *= -1;
+              if (ponto_contacto_y > bloco.y)
+              {
+                this.posicao.y = ponto_contacto_y + this.raio;
+              }
+              else if (ponto_contacto_y < bloco.y)
+              {
+                this.posicao.y = ponto_contacto_y - this.raio;
+              }
+            } 
+            else if (nova_posicao.y == ponto_contacto_y  && bloco.vida != -1)
             {
-              this.posicao.x = ponto_contacto_x + this.raio;
-            }
-            else if (ponto_contacto_x < bloco.x)
-            {
-              this.posicao.x = ponto_contacto_x - this.raio;
+              this.velocidade.x *= -1;
+              if (ponto_contacto_x > bloco.x)
+              {
+                this.posicao.x = ponto_contacto_x + this.raio;
+              }
+              else if (ponto_contacto_x < bloco.x)
+              {
+                this.posicao.x = ponto_contacto_x - this.raio;
+              }
             }
           }
           
-          if (bloco.vida > 0)
+          
+          if (bloco.vida > 0 || bloco.vida_on_fire > 0)
           {
             block_hit.play();
-            bloco.vida--;
+            //verificar se alguma bola esta com fogo
+            if (bolas.get(0).on_fire)
+            {
+              bloco.vida_on_fire--;
+            }
+            else bloco.vida--;
           }
-          if (bloco.vida == 0)
+          if (bloco.vida == 0 || bloco.vida_on_fire == 0)
           {
             bloco.destruir(header);
           }
@@ -242,13 +294,26 @@ class Ball
     game_on = false;
   }
   
-  void update() {
+  void is_on_fire()
+  {
+    if (this.on_fire) 
+    {
+      this.cor = RED;
+    }
+    else
+    {
+      this.cor = GRAY;
+    }
+  }
+  
+  void update() 
+  {
+    is_on_fire();
     this.posicao.add(velocidade);
   }
  
   void draw()
   {
-    
     update();
     fill(this.cor);
     circle(this.posicao.x, this.posicao.y, this.diametro);

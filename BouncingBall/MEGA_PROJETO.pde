@@ -50,12 +50,15 @@ final float BOLA_VEL_Y = 5;
 
 //final float BOLA_MODULO_VEL = sqrt(BOLA_VEL_X * BOLA_VEL_X + BOLA_VEL_Y * BOLA_VEL_Y);
 final float BOLA_MODULO_VEL = LARGURA_BLOCO * 0.15;
+final float POWERUP_MODULO_VEL = LARGURA_BLOCO * 0.025;
 final float PAD_MODULO_VEL = LARGURA_BLOCO * 0.2;
 
 final int VIDAS = 3;
 
 final int ROWS = 15;
 final int COLS = 13;
+final float CHANCE_DROP_POWERUPS = 0.05; 
+final float MAX_RANDOM_CHANCE = 1 / CHANCE_DROP_POWERUPS;
 
 int MAX_NUMERO_NIVEIS = 5;
 
@@ -72,11 +75,15 @@ boolean won_game = false;
 
 boolean[] passed_levels = new boolean[MAX_NUMERO_NIVEIS];
 
+ArrayList <Ball> bolas;
+
 Pad pad;
 Border border;
 Ball bola;
 BigMessage message;
 Header header;
+
+ArrayList <Fireball> fireballs;
 
 Blocks blocos = new Blocks();
 
@@ -94,6 +101,12 @@ void setup()
   bola = new Ball(LARGURA_JANELA/2, POSICAO_Y_BOLA, DIAMETRO_BOLA, GRAY);
   header = new Header(LARGURA_JANELA/2, ALTURA_BLOCO);
   message = new BigMessage();
+  bolas = new ArrayList <Ball>();
+  bolas.add(bola);
+  
+  fireballs = new ArrayList <Fireball>();
+  
+  fireball = new Fireball(pad.posicao.x, ALTURA_JANELA / 2, 0);
   //println("min: ", MIN_BORDER_X, "max: ", MAX_BORDER_X);
   
   blocos.carregar_nivel(nivel_atual, message);
@@ -227,12 +240,16 @@ void draw()
   
   border.draw();
   pad.draw();
-  bola.before_game(pad, game_on, lost);
+  for (int i = 0; i < bolas.size(); i++)
+  {
+    Ball temp_bola = bolas.get(i);
+    temp_bola.before_game(pad, game_on, lost);
+    temp_bola.detetar_colisoes(pad, blocos.blocos, header); 
+  }
   blocos.verificar_blocos();
   blocos.desenhar_blocos();
   header.draw();
   message.draw();
-  bola.detetar_colisoes(pad, blocos.blocos, header);
   header.ganhou_nivel();
   
   if (!have_lives()) return;
@@ -241,4 +258,9 @@ void draw()
   
   
   bola.draw();
+  
+  for(int i = 0; i < fireballs.size(); i++)
+  {
+    fireballs.get(i).draw();
+  }
 }

@@ -13,8 +13,12 @@ class Block
   float altura;
   
   color cor;
+  
   int vida;
+  int vida_on_fire;
+  
   int score;
+  
   
   int tipo;
   
@@ -39,6 +43,7 @@ class Block
     this.tipo = tipo;
     
     this.exposto = exposto;
+    this.vida_on_fire = 1;
     
     switch (this.tipo)
     {
@@ -90,6 +95,8 @@ class Block
       case 9:
         this.vida = -1;
         this.cor = GOLD;
+        this.vida_on_fire = 2;
+        this.score = 1000;
         break;
       default:
         //exit
@@ -105,9 +112,13 @@ class Block
     this.vida = 0;
     this.cor = INVISIBLE;
     this.exposto = false;
-    
     header.score += this.score;
-    score_atual += this.score;
+    
+    if (1 == random(1, MAX_RANDOM_CHANCE + 1))
+    {
+      
+    }
+    if (this.tipo != 9) score_atual += this.score;
   }
   
   void draw()

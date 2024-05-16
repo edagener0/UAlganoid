@@ -99,7 +99,7 @@ class Blocks
         //println("bloco atual:", tipos_blocos[i][j]);
         blocos[i][j] = new Block (offset_x, offset_y, LARGURA_BLOCO, int(tipos_blocos[i][j]), false);
         offset_x += LARGURA_BLOCO;
-        max_score += blocos[i][j].score;
+        if (blocos[i][j].tipo != 9) max_score += blocos[i][j].score;
       }
       offset_x = LARGURA_BLOCO;
       offset_y += ALTURA_BLOCO;
