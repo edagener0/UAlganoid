@@ -40,4 +40,4 @@ class BigMessage
     textAlign(CENTER, CENTER);
     text(this.texto, this.x, this.y);
   }
-};
+}

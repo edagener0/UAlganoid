@@ -78,6 +78,7 @@ class PowerUp
     if (this.posicao.y > ALTURA_JANELA || !this.visivel)
     {
       this.visivel = false;
+      this.posicao.y = 0;
       return;
     }
     update();

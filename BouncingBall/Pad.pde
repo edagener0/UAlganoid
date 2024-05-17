@@ -82,11 +82,29 @@ class Pad
    nova_posicao = nova_posicao.add(velocidade);
    min_x_temp = nova_posicao.x - this.centro;
    max_x_temp = nova_posicao.x + this.centro;
+   /*
    if (min_x_temp < MIN_BORDER_X || max_x_temp > MAX_BORDER_X)
    {
      //println("passou");
      return;
+   }*/
+   
+   if (min_x_temp < MIN_BORDER_X)
+   {
+     this.posicao.x = MIN_BORDER_X + this.largura / 2;
+     this.min_x = MIN_BORDER_X;
+     this.max_x = this.posicao.x + this.largura / 2;
+     return;
    }
+   
+   else if (max_x_temp > MAX_BORDER_X)
+   {
+     this.posicao.x = MAX_BORDER_X - this.largura / 2;
+     this.min_x = this.posicao.x - this.largura / 2;
+     this.max_x = MAX_BORDER_X;
+     return;
+   }
+   
    this.min_x = min_x_temp;
    this.max_x = max_x_temp;
    this.posicao.add(velocidade);
@@ -101,9 +119,9 @@ class Pad
   void draw()
   {
     update();
-    noStroke();
-    //stroke(5);
-    //strokeWeight(5);
+    //noStroke();
+    stroke(BLUE);
+    strokeWeight(2);
     fill(this.cor);
     rectMode(CENTER);
     rect(this.posicao.x, this.posicao.y, this.largura, this.altura);

@@ -115,6 +115,10 @@ class Blocks
     println(caminho_nivel);
     inicializar_blocos(caminho_nivel);
     message.display("Level " + nivel, BIGMESSAGE_COLOR, 2500);
+    remove_fireballs();
+    remove_triplicators();
+    remove_balls();
+    bolas.add(new Ball(LARGURA_JANELA/2, POSICAO_Y_BOLA, 0, 0, DIAMETRO_BOLA, GRAY, false));
   }
   
   void desenhar_blocos()

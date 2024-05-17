@@ -114,9 +114,25 @@ class Block
     this.exposto = false;
     header.score += this.score;
     
-    if (1 == random(1, MAX_RANDOM_CHANCE + 1))
+    //RANDOM RETORNA FLOAT OH NAO BOOM BOOM BOOM
+    if (1 == int(random(1, MAX_RANDOM_CHANCE + 1)))
     {
-      
+      //METE FLOAT AQUI PARA COMPROVAR
+      int tipo_powerup = int(random(0, 2));
+      //println("tipo", tipo_powerup);
+      switch (tipo_powerup)
+      {
+        case 0:
+          BallTriplicator triplicador = new BallTriplicator(this.x, this.y, tipo_powerup, true);
+          triplicators.add(triplicador);
+          break;
+          
+        case 1:
+          Fireball fireball = new Fireball(this.x, this.y, tipo_powerup);
+          fireballs.add(fireball);
+          break;
+        //FALTA FAZER O CASE 1
+      }
     }
     if (this.tipo != 9) score_atual += this.score;
   }
