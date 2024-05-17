@@ -57,7 +57,7 @@ final int VIDAS = 3;
 
 final int ROWS = 15;
 final int COLS = 13;
-final float CHANCE_DROP_POWERUPS = 0.05; 
+final float CHANCE_DROP_POWERUPS = 0.05; //0.05 
 final float MAX_RANDOM_CHANCE = 1 / CHANCE_DROP_POWERUPS;
 
 int MAX_NUMERO_NIVEIS = 5;
@@ -75,6 +75,8 @@ boolean won_game = false;
 
 boolean[] passed_levels = new boolean[MAX_NUMERO_NIVEIS];
 
+float on_fire_start_time;
+
 ArrayList <Ball> bolas;
 
 Pad pad;
@@ -84,13 +86,30 @@ BigMessage message;
 Header header;
 
 ArrayList <Fireball> fireballs;
-
+ArrayList <BallTriplicator> triplicators;
 Blocks blocos = new Blocks();
+
+
+void remove_fireballs()
+{
+  fireballs.clear();
+}
+
+void remove_triplicators()
+{
+  triplicators.clear();
+}
+
+void remove_balls()
+{
+  bolas.clear();
+}
 
 void settings()
 {
   size(LARGURA_JANELA, ALTURA_JANELA);
 }
+
 
 void setup()
 {
@@ -98,15 +117,16 @@ void setup()
   noStroke();
   pad = new Pad(POSICAO_X_PAD, POSICAO_Y_PAD, LARGURA_PAD, ALTURA_PAD, RED);
   border = new Border(LARGURA_BLOCO, YELLOW);
-  bola = new Ball(LARGURA_JANELA/2, POSICAO_Y_BOLA, DIAMETRO_BOLA, GRAY);
+  bola = new Ball(LARGURA_JANELA/2, POSICAO_Y_BOLA, 0, 0, DIAMETRO_BOLA, GRAY, false);
   header = new Header(LARGURA_JANELA/2, ALTURA_BLOCO);
   message = new BigMessage();
   bolas = new ArrayList <Ball>();
   bolas.add(bola);
   
   fireballs = new ArrayList <Fireball>();
+  triplicators = new ArrayList <BallTriplicator>();
   
-  fireball = new Fireball(pad.posicao.x, ALTURA_JANELA / 2, 0);
+  //fireball = new Fireball(pad.posicao.x, ALTURA_JANELA / 2, 0);
   //println("min: ", MIN_BORDER_X, "max: ", MAX_BORDER_X);
   
   blocos.carregar_nivel(nivel_atual, message);
@@ -128,51 +148,53 @@ void keyPressed()
   else if (keyCode == LEFT) pad.mover_esquerda();
   else if (keyCode == 32 && !game_on) 
   {
-    bola.lancar_bola(pad);
+    bolas.get(0).lancar_bola(pad);
     game_on = true;
   }
   else if (key == 'r')
   {
-    bola.reset(pad);
+    bolas.get(0).reset(pad);
   }
   else if (key == 'i')
   {
-    bola.velocidade.rotate(PI);
+    bolas.get(0).velocidade.rotate(PI);
   }
   else if (key == '1')
   {
     nivel_atual = 1;
     blocos.carregar_nivel(1, message);
-    bola.reset(pad);
+    bolas.get(0).reset(pad);
     pad.reset();
   }
   else if (key == '2')
   {
     nivel_atual = 2;
     blocos.carregar_nivel(2, message);
-    bola.reset(pad);
+    bolas.get(0).reset(pad);
     pad.reset();
+    
   }
   else if (key == '3')
   {
     nivel_atual = 3;
     blocos.carregar_nivel(3, message);
-    bola.reset(pad);
+    bolas.get(0).reset(pad);
     pad.reset();
   }
   else if (key == '4')
   {
     nivel_atual = 4;
     blocos.carregar_nivel(4, message);
-    bola.reset(pad);
+    bolas.get(0).reset(pad);
     pad.reset();
   }
   else if (key == '5')
   {
     nivel_atual = 5;
     blocos.carregar_nivel(5, message);
-    bola.reset(pad);
+    bolas.get(0).reset(pad);
     pad.reset();
+    
   }
   else if (key == '6')
   {
@@ -227,7 +249,7 @@ boolean ganhou()
     nivel_atual++;
     blocos.carregar_nivel(nivel_atual, message);
     won_level = false;
-    bola.reset(pad);
+    bolas.get(0).reset(pad);
     return true;
   }
   return false;
@@ -256,11 +278,26 @@ void draw()
   if (ganhou()) return;
   if (ganhou_jogo()) return;
   
-  
-  bola.draw();
-  
+  //println("BOLAS SIZE" , bolas.size());
+  for (int i = 0; i < bolas.size(); i++)
+  {
+    if (bolas.get(i).posicao.y > MAX_BORDER_Y)
+    {
+      bolas.remove(i);
+      continue;
+    }
+    //bolas.get(i).posicao.x = mouseX;
+    //bolas.get(i).posicao.y = mouseY;
+    bolas.get(i).draw();
+  }
+
   for(int i = 0; i < fireballs.size(); i++)
   {
     fireballs.get(i).draw();
+  }
+  
+  for (int i = 0; i < triplicators.size(); i++)
+  {
+    triplicators.get(i).draw();
   }
 }
