@@ -3,6 +3,7 @@ class Border
   int largura;
   color cor;
   
+  
   Border(int largura, color cor)
   {
     this.largura = largura;

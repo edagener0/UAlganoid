@@ -8,13 +8,18 @@ class Header
   
   float altura_texto_lateral;
   
+  PVector posicao;
+  
+  PImage imagem;
   Header (float x_title, float y_title)
   {
+    this.posicao = new PVector(LARGURA_JANELA / 2, ALTURA_HEADER / 2);
     this.x_title = x_title;
     this.y_title = y_title;
     this.score = 0;
     this.lives = VIDAS;
     this.altura_texto_lateral = ALTURA_HEADER - ALTURA_BLOCO;
+    this.imagem = imagem_header;
   }
   
   boolean have_lives()
@@ -31,11 +36,22 @@ class Header
     }
   }
   
+  void display_background()
+  {
+    fill(BLACK);
+    //rectMode(CENTER);
+    //rect(this.posicao.x, this.posicao.y, LARGURA_JANELA, ALTURA_HEADER);
+    image(this.imagem, 0, 0, LARGURA_JANELA, ALTURA_HEADER);
+    
+  }
+  
   
   void draw()
   {
+    display_background();
     fill(200, 0, 200);
     textSize(1 * LARGURA_BLOCO);
+    textFont(fonte);
     textAlign(CENTER, CENTER);
     text("UALGANOID", this.x_title, this.y_title);
     

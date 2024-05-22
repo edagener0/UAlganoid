@@ -10,8 +10,8 @@ class Ball
   
   boolean on_fire;
   
-  
-  
+  PImage imagem;
+
   Ball (float x, float y, float vel_x, float vel_y, float diametro, color cor, boolean on_fire)
   {
     this.posicao = new PVector(x, y);
@@ -21,6 +21,8 @@ class Ball
     this.cor = cor;
     
     this.on_fire = on_fire;
+    
+    this.imagem = imagem_bola;
   }
   
   Ball deep_copy()
@@ -461,6 +463,7 @@ class Ball
   {
     update();
     fill(this.cor);
-    circle(this.posicao.x, this.posicao.y, this.diametro);
+    image(this.imagem, this.posicao.x - this.raio, this.posicao.y - this.raio, this.diametro, this.diametro);
+    //circle(this.posicao.x, this.posicao.y, this.diametro);
   }
 }

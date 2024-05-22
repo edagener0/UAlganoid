@@ -8,7 +8,7 @@ SoundFile pad_bounce;
 SoundFile music;
 
 //declarar imagens dos blocos para cada tipo
-PImage type_0_block;
+//PImage type_0_block;
 PImage type_1_block;
 PImage type_2_block;
 PImage type_3_block;
@@ -16,10 +16,22 @@ PImage type_4_block;
 PImage type_5_block;
 PImage type_6_block;
 PImage type_7_block;
-PImage type_8_block;
-PImage type_9_block;
+
+PImage[] type_8_block = new PImage[12];
+PImage[] type_9_block = new PImage[12];
+
+PImage imagem_bola;
+
+PImage imagem_background;
+
+PImage imagem_header;
+
+PImage teste;
+
+PFont fonte;
 
 
+//im sad : ( 
 final color INVISIBLE = color(0, 0, 0, 0);
 final color GRAY = color(150, 150, 150); //O processing ja tem uma variavel predefinida gray mas como é preta preferimos substituir por uma cor mais acinzentada
 final color YELLOW = color(250, 250, 0);
@@ -44,6 +56,7 @@ final int ALTURA_HEADER = 3 * ALTURA_BLOCO;
 
 final int LARGURA_JANELA = 14*LARGURA_BLOCO;
 final int ALTURA_JANELA = LARGURA_JANELA  + ALTURA_HEADER;
+
 final int FRAME_RATE = 60;
 
 final float MIN_BORDER_X = LARGURA_BLOCO * 0.5;
@@ -128,7 +141,8 @@ void settings()
 
 void setup()
 {
-  type_0_block = loadImage("type_0_block.png");
+  
+  fonte = loadFont("title.vlw");
   type_1_block = loadImage("type_1_block.png");
   type_2_block = loadImage("type_2_block.png");
   type_3_block = loadImage("type_3_block.png");
@@ -136,8 +150,26 @@ void setup()
   type_5_block = loadImage("type_5_block.png");
   type_6_block = loadImage("type_6_block.png");
   type_7_block = loadImage("type_7_block.png");
-  type_8_block = loadImage("type_8_block.png");
-  type_9_block = loadImage("type_9_block.png");
+  
+  for (int i = 0; i < type_8_block.length; i++)
+  {
+    type_8_block[i] = loadImage(String.format("blocos_prateados/bloco%d.png", i));
+  }
+  
+  for (int i = 0; i < type_9_block.length; i++)
+  {
+    type_9_block[i] = loadImage(String.format("blocos_dourados/bloco%d.png", i));
+  }
+  
+  imagem_bola = loadImage("bola.png");
+  imagem_background = loadImage("main_background.png");
+  imagem_background.resize(LARGURA_JANELA, ALTURA_JANELA);
+  
+  imagem_header = loadImage("header.png");
+  imagem_header.resize(LARGURA_JANELA, ALTURA_HEADER);
+  
+  teste = loadImage("border.png");
+  teste.resize(LARGURA_JANELA, ALTURA_JANELA);
   
   music = new SoundFile(this, "one_more_day.ogg");
   VICTORY = new SoundFile(this, "victory.wav");
@@ -290,7 +322,7 @@ boolean ganhou()
 void draw()
 {
   //println(bola.velocidade);
-  background(BACKGROUND_COLOR);
+  background(imagem_background);
   if (!music.isPlaying() && music.position() >= music.duration())
   {
     music.play();
@@ -335,4 +367,5 @@ void draw()
   {
     triplicators.get(i).draw();
   }
+  image(teste, 0, ALTURA_HEADER);
 }

@@ -1,5 +1,8 @@
 class Block
 {
+  private final int intervalo_frames = 5;
+  private int intervalo_frames_atual = 0;
+  
   float x;
   float y;
   
@@ -25,6 +28,7 @@ class Block
   boolean exposto;
   PImage imagem;
   
+  int frame_atual = 0;
   Block(float x, float y, float largura, int tipo, boolean exposto)
   {
     this.x = x;
@@ -52,7 +56,6 @@ class Block
         this.vida = 0;
         this.cor = INVISIBLE;
         this.exposto = false;
-        this.imagem = type_0_block;
         break;
       case 1:
         this.vida = 1;
@@ -100,21 +103,20 @@ class Block
         this.vida = 2;
         this.cor = SILVER;
         this.score = 200;
-        this.imagem = type_8_block;
+        this.imagem = type_8_block[frame_atual];
         break;
       case 9:
         this.vida = -1;
         this.cor = GOLD;
         this.vida_on_fire = 2;
         this.score = 1000;
-        this.imagem = type_9_block;
+        this.imagem = type_9_block[frame_atual];
         break;
       default:
         //exit
         this.vida = 0;
         this.cor = INVISIBLE;
         this.exposto = false;
-        this.imagem = type_9_block;
         break;
     }
   }
@@ -157,7 +159,19 @@ class Block
     fill(this.cor);
     stroke(BLUE);
     strokeWeight(LARGURA_BLOCO * 0.1);
+    intervalo_frames_atual++;
+    if (this.tipo == 8) 
+    {
+      if (intervalo_frames_atual >= intervalo_frames) this.imagem = type_8_block[frame_atual++];
+      
+    }
+    else if (this.tipo == 9) 
+    {
+      if (intervalo_frames_atual >= intervalo_frames) this.imagem = type_9_block[frame_atual++];
+    }
     
+    if (frame_atual >= 12) frame_atual = 0;
+    if (intervalo_frames_atual >= intervalo_frames) intervalo_frames_atual = 0;
     //proposito de debug
     //rectMode(CENTER);
     //rect(this.x, this.y + ALTURA_HEADER, this.largura, this.altura);
