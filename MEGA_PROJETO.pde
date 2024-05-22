@@ -81,11 +81,13 @@ final float BOLA_MODULO_VEL = LARGURA_BLOCO * 0.15;
 final float POWERUP_MODULO_VEL = LARGURA_BLOCO * 0.025;
 final float PAD_MODULO_VEL = LARGURA_BLOCO * 0.2;
 
-final int VIDAS = 3;
+int VIDAS = 3;
+final int VIDAS_MAX = 3;
+
 
 final int ROWS = 15;
 final int COLS = 13;
-final float CHANCE_DROP_POWERUPS = 0.05; //0.05 
+final float CHANCE_DROP_POWERUPS = 1; //0.05 
 final float MAX_RANDOM_CHANCE = 1 / CHANCE_DROP_POWERUPS;
 
 int MAX_NUMERO_NIVEIS = 5;
@@ -115,6 +117,8 @@ Header header;
 
 ArrayList <Fireball> fireballs;
 ArrayList <BallTriplicator> triplicators;
+ArrayList <AddLife> life_adders;
+
 Blocks blocos = new Blocks();
 
 
@@ -131,6 +135,11 @@ void remove_triplicators()
 void remove_balls()
 {
   bolas.clear();
+}
+
+void remove_life_adders()
+{
+  life_adders.clear();
 }
 
 void settings()
@@ -189,6 +198,7 @@ void setup()
   
   fireballs = new ArrayList <Fireball>();
   triplicators = new ArrayList <BallTriplicator>();
+  life_adders = new ArrayList <AddLife>();
   
   //fireball = new Fireball(pad.posicao.x, ALTURA_JANELA / 2, 0);
   //println("min: ", MIN_BORDER_X, "max: ", MAX_BORDER_X);
@@ -367,5 +377,11 @@ void draw()
   {
     triplicators.get(i).draw();
   }
+  
+  for (int i = 0; i < life_adders.size(); i++)
+  {
+    life_adders.get(i).draw();
+  }
+  
   image(teste, 0, ALTURA_HEADER);
 }

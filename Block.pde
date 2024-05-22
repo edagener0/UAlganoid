@@ -132,8 +132,9 @@ class Block
     if (1 == int(random(1, MAX_RANDOM_CHANCE + 1)))
     {
       //METE FLOAT AQUI PARA COMPROVAR
-      int tipo_powerup = int(random(0, 2));
+      int tipo_powerup = int(random(0, 3));
       //println("tipo", tipo_powerup);
+      println("tipo_powerup", tipo_powerup);
       switch (tipo_powerup)
       {
         case 0:
@@ -145,6 +146,9 @@ class Block
           Fireball fireball = new Fireball(this.x, this.y, tipo_powerup);
           fireballs.add(fireball);
           break;
+        case 2:
+          AddLife life_adder = new AddLife(this.x, this.y, tipo_powerup);
+          life_adders.add(life_adder);
         //FALTA FAZER O CASE 1
       }
     }

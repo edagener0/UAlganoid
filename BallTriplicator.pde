@@ -44,7 +44,7 @@ class BallTriplicator extends PowerUp
     
     if (super.visivel && super.colisao_pad())
     {
-      println("executing");
+      //println("executing");
       super.posicao.y = 0;
       super.visivel = false;
       triplicate();

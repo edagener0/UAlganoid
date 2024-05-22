@@ -50,6 +50,10 @@ class PowerUp
         this.cor_letra = BLUE;
         this.cor_container = RED;
         break;
+      case 2:
+        this.letra = 'l';
+        this.cor_letra = RED;
+        this.cor_container = PURPLE;
       default:
         break;
     }

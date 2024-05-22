@@ -118,6 +118,7 @@ class Blocks
     remove_fireballs();
     remove_triplicators();
     remove_balls();
+    remove_life_adders();
     bolas.add(new Ball(LARGURA_JANELA/2, POSICAO_Y_BOLA, 0, 0, DIAMETRO_BOLA, GRAY, false));
   }
   
