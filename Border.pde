@@ -22,6 +22,6 @@ class Border
       rect(this.largura * 0.25, this.largura * 7 + ALTURA_HEADER, this.largura * 0.5, this.largura * 14);
       rect(this.largura * 14 - this.largura * 0.25, this.largura * 7 + ALTURA_HEADER, this.largura * 0.5, this.largura * 14);
     }
-    else image(borda, 0, ALTURA_HEADER);
+    else image(borda, 0, ALTURA_HEADER - LARGURA_BLOCO * 0.07);
   }
 }
