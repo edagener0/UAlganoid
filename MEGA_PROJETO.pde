@@ -11,6 +11,8 @@ SoundFile music;
 SoundFile picked_up_fireball;
 SoundFile picked_up_plus2balls;
 
+boolean texturas_ligadas = true;
+
 PImage type_1_block;
 PImage type_2_block;
 PImage type_3_block;
@@ -44,7 +46,7 @@ PImage fireball_imagem;
 
 PFont fonte;
 
-final float powerup_amp = 0.5;
+final float efeitos = 0.5;
 final float music_amp = 0.3;
 
 //im sad : ( 
@@ -106,7 +108,7 @@ final int COLS = 13;
 final float CHANCE_DROP_POWERUPS = 1; //0.05 
 final float MAX_RANDOM_CHANCE = 1 / CHANCE_DROP_POWERUPS;
 
-int MAX_NUMERO_NIVEIS = 5;
+int MAX_NUMERO_NIVEIS = 25;
 
 int max_score;
 int score_atual;
@@ -137,7 +139,14 @@ ArrayList <ScoreMultiplier> score_multipliers;
 
 Blocks blocos = new Blocks();
 
-
+void cheat_code(int level_number)
+{
+  for (int i = 0; i < passed_levels.length; i++)
+  {
+    if (i + 1 < level_number) passed_levels[i] = true;
+    else if (i + 1 > level_number) passed_levels[i] = false;
+  }
+}
 void remove_fireballs()
 {
   fireballs.clear();
@@ -167,7 +176,6 @@ void settings()
 {
   size(LARGURA_JANELA, ALTURA_JANELA);
 }
-
 
 void setup()
 {
@@ -285,6 +293,7 @@ void keyPressed()
     bolas.get(0).lancar_bola(pad);
     game_on = true;
   }
+  /*
   else if (key == 'r')
   {
     bolas.get(0).reset(pad);
@@ -292,10 +301,11 @@ void keyPressed()
   else if (key == 'i')
   {
     bolas.get(0).velocidade.rotate(PI);
-  }
+  }*/
   else if (key == '1')
   {
     nivel_atual = 1;
+    cheat_code(nivel_atual);
     blocos.carregar_nivel(1, message);
     bolas.get(0).reset(pad);
     pad.reset();
@@ -303,6 +313,7 @@ void keyPressed()
   else if (key == '2')
   {
     nivel_atual = 2;
+    cheat_code(nivel_atual);
     blocos.carregar_nivel(2, message);
     bolas.get(0).reset(pad);
     pad.reset();
@@ -311,6 +322,7 @@ void keyPressed()
   else if (key == '3')
   {
     nivel_atual = 3;
+    cheat_code(nivel_atual);
     blocos.carregar_nivel(3, message);
     bolas.get(0).reset(pad);
     pad.reset();
@@ -318,6 +330,7 @@ void keyPressed()
   else if (key == '4')
   {
     nivel_atual = 4;
+    cheat_code(nivel_atual);
     blocos.carregar_nivel(4, message);
     bolas.get(0).reset(pad);
     pad.reset();
@@ -325,19 +338,19 @@ void keyPressed()
   else if (key == '5')
   {
     nivel_atual = 5;
+    cheat_code(nivel_atual);
     blocos.carregar_nivel(5, message);
     bolas.get(0).reset(pad);
     pad.reset();
     
   }
-  else if (key == '6')
-  {
-    //println(millis());
-    message.display("ganda papada", YELLOW, 2000);
-  }
   else if (key == 'w')
   {
     score_atual = max_score;
+  }
+  else if (key == 'i')
+  {
+    texturas_ligadas = !texturas_ligadas;
   }
 }
 
@@ -349,6 +362,7 @@ boolean have_lives()
     {
       message.display("Game Over!", RED, 4500);
       DEFEAT.play();
+      DEFEAT.amp(efeitos);
     }
     lost = true;
     return false;
@@ -367,6 +381,7 @@ boolean ganhou_jogo()
   {
     message.display("Victory!!", CYAN, 4500);
     VICTORY.play();
+    VICTORY.amp(efeitos);
   }
   
   won_game = true;
@@ -390,9 +405,12 @@ boolean ganhou()
 
 void draw()
 {
-  if (!bolas.get(0).on_fire) background(imagem_background);
-  else background(imagem_background_on_fire);
-  
+  if (texturas_ligadas)
+  {
+    if (!bolas.get(0).on_fire) background(imagem_background);
+    else background(imagem_background_on_fire);
+  }
+  else background(BLACK);
   if (!music.isPlaying() && music.position() >= music.duration())
   {
     music.play();
@@ -402,7 +420,7 @@ void draw()
   for (int i = 0; i < bolas.size(); i++)
   {
     Ball temp_bola = bolas.get(i);
-    temp_bola.before_game(pad, game_on, lost);
+    temp_bola.before_game(pad, game_on);
     temp_bola.detetar_colisoes(pad, blocos.blocos, header); 
   }
   
@@ -427,8 +445,6 @@ void draw()
       bolas.remove(i);
       continue;
     }
-    //bolas.get(i).posicao.x = mouseX;
-    //bolas.get(i).posicao.y = mouseY;
     bolas.get(i).draw();
   }
 

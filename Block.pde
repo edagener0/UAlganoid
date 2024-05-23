@@ -160,9 +160,6 @@ class Block
   void draw()
   {
     if (this.vida == 0) return;
-    fill(this.cor);
-    stroke(BLUE);
-    strokeWeight(LARGURA_BLOCO * 0.1);
     intervalo_frames_atual++;
     if (this.tipo == 8) 
     {
@@ -175,21 +172,26 @@ class Block
     
     if (frame_atual >= 20) frame_atual = 0;
     if (intervalo_frames_atual >= intervalo_frames) intervalo_frames_atual = 0;
-    //proposito de debug
-    //rectMode(CENTER);
-    //rect(this.x, this.y + ALTURA_HEADER, this.largura, this.altura);
-    //fim de debug
-    //subtrair a largura a dividir por 2 a altura a dividir por 2 para desenhar a imagem a partir do centro
-    image(this.imagem, this.x - this.largura / 2, this.y + ALTURA_HEADER - this.altura / 2, this.largura, this.altura);
-    if (this.tipo == 8 && this.vida == 1)
+    if (!texturas_ligadas)
     {
-        image(damaged_block, this.x - this.largura / 2, this.y + ALTURA_HEADER - this.altura / 2, this.largura, this.altura);
+      fill(this.cor);
+      rectMode(CENTER);
+      rect(this.x, this.y + ALTURA_HEADER, this.largura, this.altura, LARGURA_BLOCO * 0.1);
+      noStroke();
     }
-    if (this.tipo == 9 && this.vida_on_fire == 1)
+    else
     {
-        image(damaged_block, this.x - this.largura / 2, this.y + ALTURA_HEADER - this.altura / 2, this.largura, this.altura);
+      image(this.imagem, this.x - this.largura / 2, this.y + ALTURA_HEADER - this.altura / 2, this.largura, this.altura);
+      if (this.tipo == 8 && this.vida == 1)
+      {
+          image(damaged_block, this.x - this.largura / 2, this.y + ALTURA_HEADER - this.altura / 2, this.largura, this.altura);
+      }
+      if (this.tipo == 9 && this.vida_on_fire == 1)
+      {
+          image(damaged_block, this.x - this.largura / 2, this.y + ALTURA_HEADER - this.altura / 2, this.largura, this.altura);
+      }
+      
     }
-    noStroke();
   }
   
 }

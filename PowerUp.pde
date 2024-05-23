@@ -89,23 +89,24 @@ class PowerUp
   {
     if (this.posicao.y > ALTURA_JANELA || !this.visivel)
     {
-      
       this.visivel = false;
       this.posicao.y = 0;
       return;
     }
+    
     update();
-    /*
-    rectMode(CENTER);
-    fill(this.cor_container);
-    rect(this.posicao.x, this.posicao.y, this.largura, this.largura);
     
-    fill(this.cor_letra);
-    textAlign(CENTER, CENTER);
-    textSize(this.largura);
-    text(this.letra, this.posicao.x, this.posicao.y);
-    */
-    image(this.imagem, this.posicao.x - this.largura, this.posicao.y - this.largura, this.largura, this.largura);
-    
+    if (!texturas_ligadas)
+    {
+      rectMode(CENTER);
+      fill(this.cor_container);
+      rect(this.posicao.x, this.posicao.y, this.largura, this.largura);
+      
+      fill(this.cor_letra);
+      textAlign(CENTER, CENTER);
+      textSize(this.largura);
+      text(this.letra, this.posicao.x, this.posicao.y);
+    }
+    else image(this.imagem, this.posicao.x - this.largura, this.posicao.y - this.largura, this.largura, this.largura);
   }
 }

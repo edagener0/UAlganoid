@@ -53,7 +53,7 @@ class Fireball extends PowerUp
     if (super.visivel && super.colisao_pad() && game_on)
     {
       picked_up_fireball.play();
-      picked_up_fireball.play(powerup_amp);
+      picked_up_fireball.play(efeitos);
       if(!this.is_active)
       {
         activate();

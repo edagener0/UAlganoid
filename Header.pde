@@ -62,10 +62,13 @@ class Header
 
   void display_background()
   {
-    fill(BLACK);
-    //rectMode(CENTER);
-    //rect(this.posicao.x, this.posicao.y, LARGURA_JANELA, ALTURA_HEADER);
-    image(this.imagem, 0, 0, LARGURA_JANELA, ALTURA_HEADER);
+    if (!texturas_ligadas)
+    {
+      fill(BLACK);
+      rectMode(CENTER);
+      rect(this.posicao.x, this.posicao.y, LARGURA_JANELA, ALTURA_HEADER);
+    }
+    else image(this.imagem, 0, 0, LARGURA_JANELA, ALTURA_HEADER);
   }
 
   void mostrar_score_ganho(int score_ganho)

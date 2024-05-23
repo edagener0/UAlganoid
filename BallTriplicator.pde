@@ -43,7 +43,7 @@ class BallTriplicator extends PowerUp
     if (super.visivel && super.colisao_pad() && game_on)
     {
       picked_up_plus2balls.play();
-      picked_up_plus2balls.amp(powerup_amp);
+      picked_up_plus2balls.amp(efeitos);
       triplicate();
       remove_triplicator();
     }

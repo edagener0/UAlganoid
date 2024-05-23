@@ -13,7 +13,7 @@ class AddLife extends PowerUp
     if (super.visivel && super.colisao_pad() && game_on)
     {
       coracao_sound.play();
-      coracao_sound.amp(powerup_amp);
+      coracao_sound.amp(efeitos);
       header.lives++;
       if (header.lives > VIDAS) header.lives = VIDAS;
       

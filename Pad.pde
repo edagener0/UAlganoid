@@ -92,17 +92,16 @@ class Pad
    this.posicao.x = POSICAO_X_PAD;
  }
   
-  void draw()
-  {
+void draw()
+{
     update();
-    //noStroke();
-    stroke(BLUE);
-    strokeWeight(2);
-    fill(this.cor);
-    //rectMode(CENTER);
-    //rect(this.posicao.x, this.posicao.y, this.largura, this.altura);
-    image(this.imagem, this.posicao.x - this.largura / 2, this.posicao.y - this.altura / 2, this.largura, this.altura);
-    //noStroke();
+    if (!texturas_ligadas)
+    {
+      fill(this.cor);
+      rectMode(CENTER);
+      rect(this.posicao.x, this.posicao.y, this.largura, this.altura);
+    }
+    else image(this.imagem, this.posicao.x - this.largura / 2, this.posicao.y - this.altura / 2, this.largura, this.altura);
   }
   
 }
