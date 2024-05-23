@@ -49,9 +49,8 @@ PFont fonte;
 final float efeitos = 0.5;
 final float music_amp = 0.3;
 
-//im sad : ( 
 final color INVISIBLE = color(0, 0, 0, 0);
-final color GRAY = color(150, 150, 150); //O processing ja tem uma variavel predefinida gray mas como é preta preferimos substituir por uma cor mais acinzentada
+final color GRAY = color(150, 150, 150);
 final color YELLOW = color(250, 250, 0);
 final color GREEN = color(100, 240, 100);
 final color RED = color(240, 50, 50);
@@ -295,11 +294,12 @@ void keyPressed()
     bolas.get(0).lancar_bola(pad);
     game_on = true;
   }
-  /*
+  
   else if (key == 'r')
   {
     bolas.get(0).reset(pad);
   }
+  /*
   else if (key == 'i')
   {
     bolas.get(0).velocidade.rotate(PI);
@@ -450,7 +450,6 @@ void draw()
   if (ganhou()) return;
   if (ganhou_jogo()) return;
   
-  //println("BOLAS SIZE" , bolas.size());
   for (int i = 0; i < bolas.size(); i++)
   {
     if (bolas.get(i).posicao.y > MAX_BORDER_Y)

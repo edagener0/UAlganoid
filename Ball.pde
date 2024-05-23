@@ -1,20 +1,21 @@
 class Ball
 {
-  private final float RANGE_ANGULO = 15;
+  private int intervalo_frame = 5;
+  private int intervalo_frame_atual = 0;
+
   float diametro;
   float raio;
   color cor;
-  
+
   PVector posicao;
   PVector velocidade;
-  
+
   boolean on_fire;
-  
+
   PImage imagem;
-  
+
   int frame;
-  private int intervalo_frame = 5;
-  private int intervalo_frame_atual = 0;
+
   Ball (float x, float y, float vel_x, float vel_y, float diametro, color cor, boolean on_fire)
   {
     this.posicao = new PVector(x, y);
@@ -26,273 +27,238 @@ class Ball
     this.on_fire = on_fire;
     
     this.imagem = imagem_bola;
-    
   }
-  
+
+
+  // ---------------------------------------------------------------
+  // Função responsável por inverter o sentido da velocidade da bola
+  // ---------------------------------------------------------------
+  void inverter_mov(boolean x, boolean y)
+  {
+    if (x) this.velocidade.x *= -1;
+    if (y) this.velocidade.y *= -1;
+  }
+
+
+  // ------------------------------------------
+  // Função responsável por criar uma deep copy
+  // ------------------------------------------
   Ball deep_copy()
   {
     return new Ball(this.posicao.x, this.posicao.y, this.velocidade.x, this.velocidade.y, this.diametro, this.cor, this.on_fire);
   }
-  
+
+
+  // --------------------------------------------------------------------------------------------------
+  // Função responsável por detetar colisões com o pad e inverter o movimento da bola no angulo correto
+  // --------------------------------------------------------------------------------------------------
   void colisao_pad(Pad pad)
   {
+    // return caso o jogo ainda não tenha começado, evitando calculos desnecessários
     if (!game_on) return;
     
+    // criação de um vetor temporário que está um frame à frente
     PVector nova_posicao = this.posicao.copy();
     
     nova_posicao.add(velocidade);
     
+    // calculo da distancia entre a bola e o centro do pad
     float distancia = this.posicao.x - pad.posicao.x;
     
-    //float teta = 1.285714286 * distancia;
-    //println(45 / (LARGURA_PAD));
+    // angulo utilizado para alterar o angulo do movimento da bola quando bate com o pad
     float teta = (90 / (pad.max_x - pad.min_x)) * distancia;
     
+    // variavel que guarda o ponto de contacto entre a bola e o pad
     float ponto_contacto = 0;
-    
-    if (nova_posicao.x >= pad.min_x && nova_posicao.x <= pad.max_x)
-    {
-      ponto_contacto = nova_posicao.x;
-    } else if (nova_posicao.x <= pad.min_x)
-    {
-      ponto_contacto = pad.min_x;
-    } else if (nova_posicao.x >= pad.max_x)
-    {
-      ponto_contacto = pad.max_x;
-    }
-    
-    if (teta > 45)
-    {
-      teta = 45;
-    }
-    else if (teta < -45)
-    {
-      teta = -45;
-    }
-    
+
+    // calculo do ponto de contacto
+    if (nova_posicao.x >= pad.min_x && nova_posicao.x <= pad.max_x) ponto_contacto = nova_posicao.x;
+    else if (nova_posicao.x <= pad.min_x)                           ponto_contacto = pad.min_x;
+    else if (nova_posicao.x >= pad.max_x)                           ponto_contacto = pad.max_x;
+
+    // valor maximo e minimo do teta
+    if (teta > 45)       teta = 45;
+    else if (teta < -45) teta = -45;
+
     teta = radians(teta);
-    
-    //println("pad:", pad.posicao.x, pad.posicao.y, pad.min_x, pad.max_x, "ponto de contacto:", ponto_contacto);
-    
-    //this.posicao.y > pad.min_y && pad.min_x - this.posicao.x <= 0 && pad.max_x - this.posicao.x >= 0
-    //println(teta, degrees(teta));
+
+    // detetar colisão
     if (((ponto_contacto - this.posicao.x)*(ponto_contacto - this.posicao.x)) + ((pad.min_y-this.posicao.y)*(pad.min_y-this.posicao.y)) <= this.raio*this.raio)
     {
-      println("1");
-      this.velocidade.y *= -1;
+      inverter_mov(false, true);
       pad_bounce.play();
-      //this.velocidade.rotate(PI);
-      //this.velocidade.rotate(teta);
+      
+      // vetor velocidade recebe um novo angulo, baseado no teta calculado anteriormente
       PVector.fromAngle(teta - HALF_PI, this.velocidade);
       this.velocidade.setMag(BOLA_MODULO_VEL);
-      this.posicao.y = pad.min_y - this.raio;
       
+      // offset para evitar que a bola entre no pad
+      this.posicao.y = pad.min_y - this.raio;
     }
-    //println(degrees(teta), degrees(velocidade.heading()));
   }
-  /*
-  void remove_balls()
-  {
-    for (int i = 0; i < bolas.size(); i++)
-    {
-      if (this.posicao.y > MAX_BORDER_Y)
-      {
-        bolas.remove(i);
-      }
-    }
-  }*/
+
+
+  // -----------------------------------------------------------------------------------
+  // Função responsável por detetar colisões com a parede e inverter o movimento da bola
+  // -----------------------------------------------------------------------------------
   void colisao_parede(Pad pad, Header header)
   {
     if (((MIN_BORDER_Y-this.posicao.y)*(MIN_BORDER_Y-this.posicao.y)) <= this.raio*this.raio)
     {
-      this.velocidade.y *= -1;
+      // colisao no topo
+      inverter_mov(false, true);
       this.posicao.y = MIN_BORDER_Y + this.raio;
     }
     else if (((MIN_BORDER_X - this.posicao.x)*(MIN_BORDER_X - this.posicao.x)) <= this.raio*this.raio)
     {
-      this.velocidade.x *= -1;
+      // colisao do lado esquerdo
+      inverter_mov(true, false);
       this.posicao.x = MIN_BORDER_X + this.raio;
     }
     else if (((MAX_BORDER_X - this.posicao.x)*(MAX_BORDER_X - this.posicao.x)) <= this.raio*this.raio)
     {
-      this.velocidade.x *= -1;
+      // colisao do lado direito
+      inverter_mov(true, false);
       this.posicao.x = MAX_BORDER_X - this.raio;
     }
     else if (this.posicao.y > MAX_BORDER_Y)
     {
+      // verifica se a bola "caiu"
       if(bolas.size() == 1)
       {
+        // caso só exista uma bola no array de bolas, é retirada uma vida
         header.lives--;
         reset(pad);
       }
     }
   }
-  void inverter(float angulo, boolean inverter_x, boolean inverter_y)
+
+
+  // -------------------------------------------------------------------------------------------
+  // Função que após detetada uma colisão verifica em que lado foi e inverte o movimento da bola
+  // -------------------------------------------------------------------------------------------
+  void colisao_bloco(Block bloco, float x_prox, float y_prox)
   {
-    if (inverter_x) this.velocidade.x *= -1;
-    if (inverter_y) this.velocidade.y *= -1;
+    // colisão horizontal
+    if (x_prox == bloco.min_x && this.velocidade.x > 0) // colisao esquerda
+    {
+      inverter_mov(true, false);
+    }
+    else if (x_prox == bloco.max_x && this.velocidade.x < 0) // colisao direita
+    {
+      inverter_mov(true, false);
+    }
     
-    PVector temp = new PVector();
-    temp.setMag(BOLA_MODULO_VEL);
-    
-    PVector.fromAngle(angulo - PI, temp);
-    
-    bola.posicao.add(temp);
+    // colisão vertical
+    if (y_prox == bloco.min_y && this.velocidade.y > 0) // colisao cima
+    {
+      inverter_mov(false, true);
+    }
+    else if (y_prox == bloco.max_y && this.velocidade.y < 0) // colisao baixo
+    {
+      inverter_mov(false, true);
+    }
   }
-  /*
-  void inverter_y(float angulo)
-  {
-    this.velocidade.y *= -1;
-    
-    PVector temp = new PVector();
-    temp.setMag(BOLA_MODULO_VEL);
-    
-    PVector.fromAngle(angulo - PI, temp);
-    
-    bola.posicao.add(temp);
-  }*/
-  
-  void colisao_bloco(float angulo, float angulo_vetor)
-  {
-    if (angulo <= 315 - RANGE_ANGULO && angulo >= 225 + RANGE_ANGULO) //bateu em baixo
-    {
-      inverter(angulo_vetor, false, true);
-    }
-    else if (angulo <= 225 - RANGE_ANGULO && angulo >= 135 + RANGE_ANGULO) //bateu em esquerda
-    {
-      inverter(angulo_vetor, true, false);
-    }
-    else if (angulo <= 135 - RANGE_ANGULO && angulo >= 45 + RANGE_ANGULO) //bateu em cima
-    {
-      inverter(angulo_vetor, false, true);
-    }
-    else if (angulo <= 45 - RANGE_ANGULO && angulo >= 315 + RANGE_ANGULO) //bateu à direita
-    {
-      inverter(angulo_vetor, true, false);
-    }
-    else inverter(angulo_vetor, true, true);
-  }
-  
+
+
+  // -------------------------------------------------------
+  // Função que percorre o array de blocos e deteta colisões
+  // -------------------------------------------------------
   void colisao_blocos(Block[][] blocos)
   {
-    
     for (int i = 0; i < ROWS; i++)
     {
       for (int j = 0; j < COLS; j++)
       {
-        //println(i,j, ROWS, COLS);
         Block bloco = blocos[i][j];
-        //println(bloco.exposto);
-        
+
+        // caso o bloco não esteja exposto, evitamos iterações e calculos desnecessários
         if (!bloco.exposto) continue;
-        
-        float x_mais_proximo = constrain(this.posicao.x, bloco.min_x, bloco.max_x);
-        float y_mais_proximo = constrain(this.posicao.y, bloco.min_y, bloco.max_y);
-        //println(x_mais_proximo,y_mais_proximo);
-        
-        //calculo da equação do circulo para ver se o ponto pertence ou não à circunferencia
-        float distancia_x = this.posicao.x - x_mais_proximo;
-        float distancia_y = this.posicao.y - y_mais_proximo;
-        float distancia = distancia_x * distancia_x + distancia_y * distancia_y;
-        
-        PVector vetor_colisao = new PVector(x_mais_proximo, y_mais_proximo);
-        
-        vetor_colisao.sub(this.posicao);
-        vetor_colisao.normalize();
-          
-        float angulo = 360 - degrees(vetor_colisao.heading() + PI);
-        float angulo_vetor = vetor_colisao.heading();
-        
-        if (distancia <= this.raio * this.raio && bloco.vida != 0) // colisao
+
+        // calculo dos pontos de contacto mais próximos para a localização atual da bola
+        float x_prox = constrain(this.posicao.x, bloco.min_x, bloco.max_x);
+        float y_prox = constrain(this.posicao.y, bloco.min_y, bloco.max_y);
+
+        // distância entre o centro da bola e o ponto de contacto mais próximo
+        float dist = dist(this.posicao.x, this.posicao.y, x_prox, y_prox);
+
+        // caso a distância entre o centro da bola e o ponto de contacto seja inferior ou igual ao raio da bola, há colisão
+        if (dist <= this.raio && bloco.vida != 0)
         {
-          
-          println("bloco.tipo:",bloco.tipo);
-          
-          if (!bolas.get(0).on_fire)
+          if (bolas.get(0).on_fire && bloco.tipo == 9) 
           {
-            colisao_bloco(angulo, angulo_vetor);
+            colisao_bloco(bloco, x_prox, y_prox);
+            bloco.vida_on_fire--;
+          }
+          else if (bolas.get(0).on_fire)
+          {
+            bloco.vida = 0;
+          }
+          else
+          {
+            colisao_bloco(bloco, x_prox, y_prox);
             bloco.vida--;
-            if (bloco.vida == 0)
-            {
-              bloco.destruir(header);
-            }
-            return;
           }
           
-          if (bolas.get(0).on_fire && bloco.tipo == 9)
+          // caso o bloco tenha 0 de vida, é "destruido"
+          if (bloco.vida == 0 || bloco.vida_on_fire == 0)
           {
-            colisao_bloco(angulo, angulo_vetor);
-            if (bloco.vida_on_fire > 0)
-            {
-              block_hit.play();
-              //verificar se alguma bola esta com fo
-              bloco.vida_on_fire--;
-              if (bloco.vida_on_fire == 0)
-              {
-                bloco.destruir(header);
-              }
-              return;
-            }
+            bloco.destruir(header);
           }
           
-          if (bolas.get(0).on_fire)
-          {
-            //colisao_bloco(angulo, angulo_vetor);
-            if (bloco.vida_on_fire > 0)
-            {
-              block_hit.play();
-              //verificar se alguma bola esta com fo
-              bloco.vida_on_fire--;
-              if (bloco.vida_on_fire == 0)
-              {
-                bloco.destruir(header);
-              }
-              return;
-            }
-          }
+          // return evita que blocos que estejam proximos sejam tambem destruidos
+          return;
         }
-      }        
+      }
     }
   }
-  
+
+
+  // -------------------------------------------------------------------------------------------------------------------
+  // Função que trata de chamar todas as outras funções de verificar colisões, passando os objetos necessarios a cada uma
+  // -------------------------------------------------------------------------------------------------------------------
   void detetar_colisoes(Pad pad, Block[][] blocos, Header header)
   {
     colisao_pad(pad);
     colisao_parede(pad, header);
     colisao_blocos(blocos);
   }
-  
+
+
+  // ---------------------------------------------------------------
+  // Função que coloca a bola em cima do pad antes que o jogo comece
+  // ---------------------------------------------------------------
   void before_game(Pad pad, boolean game_on)
   {
-    if (game_on)
-    {
-      return;
-    }
-    
+    // return caso a bola já esteja em movimento, ou seja, o jogo já começou
+    if (game_on) return;
+    // centra a bola 
     this.posicao.x = pad.posicao.x;
   }
-  
+
+
+  // --------------------------------------------------------------
+  // Função que lança a bola quando a tecla de Espaço é pressionada
+  // --------------------------------------------------------------
   void lancar_bola(Pad pad)
   {
+    // return caso a bola já esteja em movimento, ou seja, o jogo já começou
     if (game_on) return;
     
+    // vetor aponta para cima, com a magnitude especificada através da variavel global
     this.velocidade.y = -1;
     this.velocidade.setMag(BOLA_MODULO_VEL);
     
-    if (pad.velocidade.x > 0)
-    {
-      this.velocidade.rotate(radians(45));
-    }
-    else if (pad.velocidade.x < 0)
-    {
-      this.velocidade.rotate(radians(-45));
-    }
-    else
-    {
-      this.velocidade.rotate(0);
-    }
+    // a direção da bola é alterada caso o pad tenha movimentação lateral quando é lançada
+    if      (pad.velocidade.x > 0)  this.velocidade.rotate(radians(45));
+    else if (pad.velocidade.x < 0)  this.velocidade.rotate(radians(-45));
+    else                            this.velocidade.rotate(0);
   }
-  
+
+
+  // --------------------------------------------------------------------
+  // Função que reseta a bola e coloca-a por cima do ponto central do pad
+  // --------------------------------------------------------------------
   void reset(Pad pad)
   {
     this.posicao.x = pad.posicao.x;
@@ -301,44 +267,52 @@ class Ball
     bolas.get(0).velocidade.x = 0;
     game_on = false;
   }
-  
-  void is_on_fire()
-  {
-    if (this.on_fire) 
-    {
-      this.cor = RED;
-    }
-    else
-    {
-      this.cor = GRAY;
-    }
-  }
-  
+
+
+  // -----------------------------------------------------------------------------------
+  // Função que trata de alguns elementos que necessitam de ser atualizados a cada frame
+  // -----------------------------------------------------------------------------------
   void update() 
   {
-    is_on_fire();
+    // adição do vetor velocidade à posição da bola
     this.posicao.add(velocidade);
   }
- 
+
+
+  // ------------------------------------------------------------------------------
+  // Função responsável por desenhar a bola e outros elementos relacionados no ecrã
+  // ------------------------------------------------------------------------------
   void draw()
   {
     if (game_ended) return;
     update();
-    fill(this.cor);
-    if (this.on_fire)
-    {
-      intervalo_frame_atual++;
-      if (intervalo_frame_atual >= intervalo_frame)
-      {
-        intervalo_frame_atual = 0;
-        frame++;
-      }
-      if (frame > 9) frame = 0;
-      this.imagem = bola_on_fire[frame];
-    }
-    else this.imagem = imagem_bola;
     
-    if (texturas_ligadas) image(this.imagem, this.posicao.x - this.raio, this.posicao.y - this.raio, this.diametro, this.diametro);
-    else circle(this.posicao.x, this.posicao.y, this.diametro);
+    // if responsavel por desenhar a bola com cores ou com textura, dependendo se as texturas estão ligadas ou não
+    if (!texturas_ligadas)
+    {
+      if (this.on_fire)  this.cor = RED;
+      else               this.cor = GRAY;
+
+      fill(this.cor);
+      circle(this.posicao.x, this.posicao.y, this.diametro);
+    }
+    else
+    {
+      // caso on_fire é desenhada a animação, caso contrario é apenas desenhada a bola padrão
+      if (this.on_fire)
+      {
+        intervalo_frame_atual++;
+        if (intervalo_frame_atual >= intervalo_frame)
+        {
+          intervalo_frame_atual = 0;
+          frame++;
+        }
+        if (frame > 9) frame = 0;
+        this.imagem = bola_on_fire[frame];
+      }
+      else this.imagem = imagem_bola;
+
+      image(this.imagem, this.posicao.x - this.raio, this.posicao.y - this.raio, this.diametro, this.diametro);
+    }
   }
 }
