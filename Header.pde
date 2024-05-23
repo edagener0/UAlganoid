@@ -115,7 +115,7 @@ class Header
     this.opacidade_last_score -= 5;
     if (this.opacidade_last_score < 0) this.opacidade_last_score = 0;
     
-    if (multiplier == 5)
+    if (multiplier == 5 && score_multipliers.size() != 0)
     {
       intervalo_frame_atual++;
       if(intervalo_frame_atual > intervalo_frame)

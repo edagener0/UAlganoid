@@ -98,6 +98,8 @@ final float BOLA_MODULO_VEL = LARGURA_BLOCO * 0.15;
 final float POWERUP_MODULO_VEL = LARGURA_BLOCO * 0.025;
 final float PAD_MODULO_VEL = LARGURA_BLOCO * 0.2;
 
+boolean game_ended = false;
+
 int VIDAS = 3;
 
 int multiplier = 1;
@@ -360,9 +362,15 @@ boolean have_lives()
   {
     if (!lost)
     {
+      remove_fireballs();
+      remove_triplicators();
+      remove_life_adders();
+      remove_score_multipliers();
+      
       message.display("Game Over!", RED, 4500);
       DEFEAT.play();
       DEFEAT.amp(efeitos);
+      game_ended = true;
     }
     lost = true;
     return false;
@@ -379,11 +387,16 @@ boolean ganhou_jogo()
   
   if (!won_game) 
   {
+    remove_fireballs();
+    remove_triplicators();
+    remove_life_adders();
+    remove_score_multipliers();
+    
     message.display("Victory!!", CYAN, 4500);
     VICTORY.play();
     VICTORY.amp(efeitos);
+    game_ended = true;
   }
-  
   won_game = true;
   
   return true;

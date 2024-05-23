@@ -322,6 +322,7 @@ class Ball
  
   void draw()
   {
+    if (game_ended) return;
     update();
     fill(this.cor);
     if (this.on_fire)
