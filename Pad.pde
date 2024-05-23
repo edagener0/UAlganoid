@@ -21,6 +21,7 @@ class Pad
   
   color cor;
   
+  PImage imagem;
   
   Pad (float x, float y, float largura, float altura, color cor)
   {
@@ -36,6 +37,9 @@ class Pad
     this.max_y = this.posicao.y + this.altura / 2;
     this.min_x = this.posicao.x - this.largura / 2;
     this.max_x = this.posicao.x + this.largura / 2;
+    this.imagem = imagem_pad;
+    
+    
   }
   
   
@@ -123,8 +127,9 @@ class Pad
     stroke(BLUE);
     strokeWeight(2);
     fill(this.cor);
-    rectMode(CENTER);
-    rect(this.posicao.x, this.posicao.y, this.largura, this.altura);
+    //rectMode(CENTER);
+    //rect(this.posicao.x, this.posicao.y, this.largura, this.altura);
+    image(this.imagem, this.posicao.x - this.largura / 2, this.posicao.y - this.altura / 2, this.largura, this.altura);
     //noStroke();
   }
   

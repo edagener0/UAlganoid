@@ -51,6 +51,8 @@ class Fireball extends PowerUp
     }
     if (super.visivel && super.colisao_pad())
     {
+      picked_up_fireball.play();
+      picked_up_fireball.play(powerup_amp);
       if(!this.is_active)
       {
         super.posicao.y = 0;

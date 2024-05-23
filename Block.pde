@@ -126,13 +126,16 @@ class Block
     this.vida = 0;
     this.cor = INVISIBLE;
     this.exposto = false;
-    header.score += this.score;
+    
+    //header.last_score = this.score * multiplier;
+    int last_score = this.score * multiplier;
+    header.score += last_score;
     
     //RANDOM RETORNA FLOAT OH NAO BOOM BOOM BOOM
     if (1 == int(random(1, MAX_RANDOM_CHANCE + 1)))
     {
       //METE FLOAT AQUI PARA COMPROVAR
-      int tipo_powerup = int(random(0, 3));
+      int tipo_powerup = int(random(0, 4));
       //println("tipo", tipo_powerup);
       println("tipo_powerup", tipo_powerup);
       switch (tipo_powerup)
@@ -150,8 +153,13 @@ class Block
           AddLife life_adder = new AddLife(this.x, this.y, tipo_powerup);
           life_adders.add(life_adder);
         //FALTA FAZER O CASE 1
+        case 3:
+          ScoreMultiplier score_multiplier = new ScoreMultiplier(this.x, this.y, tipo_powerup);
+          score_multipliers.add(score_multiplier);
       }
     }
+    header.mostrar_score_ganho(last_score);
+    
     if (this.tipo != 9) score_atual += this.score;
   }
   
@@ -174,7 +182,7 @@ class Block
       if (intervalo_frames_atual >= intervalo_frames) this.imagem = type_9_block[frame_atual++];
     }
     
-    if (frame_atual >= 12) frame_atual = 0;
+    if (frame_atual >= 20) frame_atual = 0;
     if (intervalo_frames_atual >= intervalo_frames) intervalo_frames_atual = 0;
     //proposito de debug
     //rectMode(CENTER);
@@ -182,6 +190,14 @@ class Block
     //fim de debug
     //subtrair a largura a dividir por 2 a altura a dividir por 2 para desenhar a imagem a partir do centro
     image(this.imagem, this.x - this.largura / 2, this.y + ALTURA_HEADER - this.altura / 2, this.largura, this.altura);
+    if (this.tipo == 8 && this.vida == 1)
+    {
+        image(damaged_block, this.x - this.largura / 2, this.y + ALTURA_HEADER - this.altura / 2, this.largura, this.altura);
+    }
+    if (this.tipo == 9 && this.vida_on_fire == 1)
+    {
+        image(damaged_block, this.x - this.largura / 2, this.y + ALTURA_HEADER - this.altura / 2, this.largura, this.altura);
+    }
     noStroke();
   }
   

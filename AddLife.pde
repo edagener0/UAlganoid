@@ -12,9 +12,12 @@ class AddLife extends PowerUp
   {
     if (super.visivel && super.colisao_pad())
     {
-      VIDAS++;
-      if (VIDAS > VIDAS_MAX) VIDAS = VIDAS_MAX;
-      header.lives = VIDAS;
+      coracao_sound.play();
+      coracao_sound.amp(powerup_amp);
+      header.lives++;
+      
+      if (header.lives > VIDAS) header.lives = VIDAS;
+
     }
     super.draw();
   }

@@ -11,7 +11,10 @@ class Ball
   boolean on_fire;
   
   PImage imagem;
-
+  
+  int frame;
+  private int intervalo_frame = 5;
+  private int intervalo_frame_atual = 0;
   Ball (float x, float y, float vel_x, float vel_y, float diametro, color cor, boolean on_fire)
   {
     this.posicao = new PVector(x, y);
@@ -23,6 +26,7 @@ class Ball
     this.on_fire = on_fire;
     
     this.imagem = imagem_bola;
+    
   }
   
   Ball deep_copy()
@@ -463,6 +467,19 @@ class Ball
   {
     update();
     fill(this.cor);
+    if (this.on_fire)
+    {
+      intervalo_frame_atual++;
+      if (intervalo_frame_atual >= intervalo_frame)
+      {
+        intervalo_frame_atual = 0;
+        frame++;
+      }
+      if (frame > 9) frame = 0;
+      this.imagem = bola_on_fire[frame];
+    }
+    else this.imagem = imagem_bola;
+    
     image(this.imagem, this.posicao.x - this.raio, this.posicao.y - this.raio, this.diametro, this.diametro);
     //circle(this.posicao.x, this.posicao.y, this.diametro);
   }

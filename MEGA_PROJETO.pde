@@ -2,10 +2,14 @@ import processing.sound.*;
 
 SoundFile VICTORY;
 SoundFile DEFEAT;
-SoundFile block_hit;
+SoundFile coracao_sound;
 SoundFile pad_bounce;
+SoundFile block_hit;
 
 SoundFile music;
+
+SoundFile picked_up_fireball;
+SoundFile picked_up_plus2balls;
 
 //declarar imagens dos blocos para cada tipo
 //PImage type_0_block;
@@ -17,19 +21,33 @@ PImage type_5_block;
 PImage type_6_block;
 PImage type_7_block;
 
-PImage[] type_8_block = new PImage[12];
-PImage[] type_9_block = new PImage[12];
+PImage[] type_8_block = new PImage[20];
+PImage[] type_9_block = new PImage[20];
+PImage[] bola_on_fire = new PImage[10];
+PImage[] multiplier_image = new PImage[4];
 
 PImage imagem_bola;
 
 PImage imagem_background;
 
+PImage imagem_background_on_fire;
+
 PImage imagem_header;
 
-PImage teste;
+PImage borda;
+
+PImage imagem_pad;
+
+PImage damaged_block;
+
+PImage coracao;
+PImage bola_multiplier_imagem;
+PImage fireball_imagem;
 
 PFont fonte;
 
+final float powerup_amp = 0.5;
+final float music_amp = 0.3;
 
 //im sad : ( 
 final color INVISIBLE = color(0, 0, 0, 0);
@@ -65,7 +83,7 @@ final float MAX_BORDER_X = LARGURA_JANELA - MIN_BORDER_X;
 final float MIN_BORDER_Y = ALTURA_BLOCO + ALTURA_HEADER; //rever
 final float MAX_BORDER_Y = ALTURA_JANELA + ALTURA_HEADER;
 
-final int LARGURA_PAD = 4 * LARGURA_BLOCO;
+final int LARGURA_PAD = 2 * LARGURA_BLOCO;
 final float ALTURA_PAD = LARGURA_BLOCO * 0.5;
 final float POSICAO_X_PAD = LARGURA_JANELA / 2;
 final float POSICAO_Y_PAD = ALTURA_JANELA - ALTURA_BLOCO * 1.5;
@@ -82,7 +100,8 @@ final float POWERUP_MODULO_VEL = LARGURA_BLOCO * 0.025;
 final float PAD_MODULO_VEL = LARGURA_BLOCO * 0.2;
 
 int VIDAS = 3;
-final int VIDAS_MAX = 3;
+
+int multiplier = 1;
 
 
 final int ROWS = 15;
@@ -118,6 +137,7 @@ Header header;
 ArrayList <Fireball> fireballs;
 ArrayList <BallTriplicator> triplicators;
 ArrayList <AddLife> life_adders;
+ArrayList <ScoreMultiplier> score_multipliers;
 
 Blocks blocos = new Blocks();
 
@@ -142,6 +162,11 @@ void remove_life_adders()
   life_adders.clear();
 }
 
+void remove_score_multipliers()
+{
+  score_multipliers.clear();
+}
+
 void settings()
 {
   size(LARGURA_JANELA, ALTURA_JANELA);
@@ -150,7 +175,8 @@ void settings()
 
 void setup()
 {
-  
+  imagem_pad = loadImage("pad.png");
+  damaged_block = loadImage("block_damaged.png");
   fonte = loadFont("title.vlw");
   type_1_block = loadImage("type_1_block.png");
   type_2_block = loadImage("type_2_block.png");
@@ -160,34 +186,69 @@ void setup()
   type_6_block = loadImage("type_6_block.png");
   type_7_block = loadImage("type_7_block.png");
   
-  for (int i = 0; i < type_8_block.length; i++)
+  for (int i = 0; i < 12; i++)
   {
     type_8_block[i] = loadImage(String.format("blocos_prateados/bloco%d.png", i));
   }
   
-  for (int i = 0; i < type_9_block.length; i++)
+  for (int i = 12; i < 20; i++)
+  {
+    type_8_block[i] = loadImage("blocos_prateados/bloco0.png");
+  }
+  
+  for (int i = 0; i < 12; i++)
   {
     type_9_block[i] = loadImage(String.format("blocos_dourados/bloco%d.png", i));
   }
   
+  for (int i = 12; i < 20; i++)
+  {
+    type_9_block[i] = loadImage("blocos_dourados/bloco0.png");
+  }
+  
+  for (int i = 0; i < bola_on_fire.length; i++)
+  {
+    bola_on_fire[i] = loadImage(String.format("bola_on_fire/%d.png", i));
+  }
+  
+  for (int i = 0; i < multiplier_image.length; i++)
+  {
+    multiplier_image[i] = loadImage(String.format("x5/%d.png", i));
+  }
+  
+  coracao = loadImage("coracao_powerup.png");
   imagem_bola = loadImage("bola.png");
+  
+  
   imagem_background = loadImage("main_background.png");
   imagem_background.resize(LARGURA_JANELA, ALTURA_JANELA);
   
+  imagem_background_on_fire = loadImage("background_on_fire.png");
+  imagem_background_on_fire.resize(LARGURA_JANELA, ALTURA_JANELA);
+  
   imagem_header = loadImage("header.png");
   imagem_header.resize(LARGURA_JANELA, ALTURA_HEADER);
+  fireball_imagem = loadImage("fireball.png");
   
-  teste = loadImage("border.png");
-  teste.resize(LARGURA_JANELA, ALTURA_JANELA);
+  borda = loadImage("border.png");
+  borda.resize(LARGURA_JANELA, ALTURA_JANELA);
+  
+  bola_multiplier_imagem = loadImage("bola_multiplier.png");
   
   music = new SoundFile(this, "one_more_day.ogg");
   VICTORY = new SoundFile(this, "victory.wav");
   DEFEAT = new SoundFile(this, "defeat.wav");
-  block_hit = new SoundFile(this, "hit.wav");
+  coracao_sound = new SoundFile(this, "coracao_sound.wav");
   pad_bounce = new SoundFile(this, "pad.wav");
+  picked_up_fireball = new SoundFile(this, "powerup_fire.wav");
+  picked_up_plus2balls = new SoundFile(this, "powerup_plus2balls.wav");
+  
+  //
+  block_hit = new SoundFile(this, "coracao_sound.wav");
   
   frameRate(FRAME_RATE);
   noStroke();
+  
   pad = new Pad(POSICAO_X_PAD, POSICAO_Y_PAD, LARGURA_PAD, ALTURA_PAD, RED);
   border = new Border(LARGURA_BLOCO, YELLOW);
   bola = new Ball(LARGURA_JANELA/2, POSICAO_Y_BOLA, 0, 0, DIAMETRO_BOLA, GRAY, false);
@@ -199,6 +260,7 @@ void setup()
   fireballs = new ArrayList <Fireball>();
   triplicators = new ArrayList <BallTriplicator>();
   life_adders = new ArrayList <AddLife>();
+  score_multipliers = new ArrayList <ScoreMultiplier>();
   
   //fireball = new Fireball(pad.posicao.x, ALTURA_JANELA / 2, 0);
   //println("min: ", MIN_BORDER_X, "max: ", MAX_BORDER_X);
@@ -211,9 +273,10 @@ void setup()
   }
   
   
-  
+  textFont(fonte);
   //load images
   music.play();
+  music.amp(music_amp);
 }
 
 void keyPressed()
@@ -332,13 +395,16 @@ boolean ganhou()
 void draw()
 {
   //println(bola.velocidade);
-  background(imagem_background);
+  if (!bolas.get(0).on_fire) background(imagem_background);
+  else background(imagem_background_on_fire);
   if (!music.isPlaying() && music.position() >= music.duration())
   {
     music.play();
+    music.amp(music_amp);
   }
   border.draw();
   pad.draw();
+  
   for (int i = 0; i < bolas.size(); i++)
   {
     Ball temp_bola = bolas.get(i);
@@ -383,5 +449,10 @@ void draw()
     life_adders.get(i).draw();
   }
   
-  image(teste, 0, ALTURA_HEADER);
+  for (int i = 0; i < score_multipliers.size(); i++) 
+  {
+    score_multipliers.get(i).draw();
+  }
+  
+  
 }

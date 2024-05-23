@@ -17,6 +17,7 @@ class PowerUp
   
   boolean visivel;
   
+  PImage imagem;
   
   PowerUp(float x, float y, int tipo)
   {
@@ -37,24 +38,32 @@ class PowerUp
     this.max_y = this.posicao.y + metade_largura;
     this.min_y = this.posicao.y - metade_largura;
     
-    
     switch(this.tipo)
     {
       case 0:
         this.letra = 'm';
         this.cor_letra = RED;
         this.cor_container = BLUE;
+        this.imagem = bola_multiplier_imagem;
         break;
       case 1:
         this.letra = 'f';
         this.cor_letra = BLUE;
         this.cor_container = RED;
+        this.imagem = fireball_imagem;
         break;
       case 2:
         this.letra = 'l';
         this.cor_letra = RED;
         this.cor_container = PURPLE;
-      default:
+        this.imagem = coracao;
+        //println("OLHA ISTO TA TUOD FOIDO CARALHO");
+        break;
+      case 3:
+        this.letra = 's';
+        this.cor_letra = BLUE;
+        this.cor_container = WHITE;
+        this.imagem = multiplier_image[0];
         break;
     }
   }
@@ -81,11 +90,13 @@ class PowerUp
   {
     if (this.posicao.y > ALTURA_JANELA || !this.visivel)
     {
+      
       this.visivel = false;
       this.posicao.y = 0;
       return;
     }
     update();
+    /*
     rectMode(CENTER);
     fill(this.cor_container);
     rect(this.posicao.x, this.posicao.y, this.largura, this.largura);
@@ -94,6 +105,8 @@ class PowerUp
     textAlign(CENTER, CENTER);
     textSize(this.largura);
     text(this.letra, this.posicao.x, this.posicao.y);
+    */
+    image(this.imagem, this.posicao.x - this.largura, this.posicao.y - this.largura, this.largura, this.largura);
     
   }
 }
