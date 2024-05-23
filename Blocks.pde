@@ -85,7 +85,7 @@ class Blocks
     //bloco.draw();
     
     // ver defensividade
-    Ficheiro ficheiro = new Ficheiro(caminho_ficheiro);
+    Ficheiro ficheiro = new Ficheiro("levels/" + caminho_ficheiro);
     String[][] tipos_blocos = ficheiro.parse_file(",");
     
     //println(tipos_blocos[0]);

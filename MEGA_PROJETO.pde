@@ -175,76 +175,76 @@ void settings()
 
 void setup()
 {
-  imagem_pad = loadImage("pad.png");
-  damaged_block = loadImage("block_damaged.png");
-  fonte = loadFont("title.vlw");
-  type_1_block = loadImage("type_1_block.png");
-  type_2_block = loadImage("type_2_block.png");
-  type_3_block = loadImage("type_3_block.png");
-  type_4_block = loadImage("type_4_block.png");
-  type_5_block = loadImage("type_5_block.png");
-  type_6_block = loadImage("type_6_block.png");
-  type_7_block = loadImage("type_7_block.png");
+  imagem_pad = loadImage("pad/pad.png");
+  damaged_block = loadImage("blocos/block_damaged.png");
+  fonte = loadFont("Fontes_Texto/title.vlw");
+  type_1_block = loadImage("blocos/blocos_normais/type_1_block.png");
+  type_2_block = loadImage("blocos/blocos_normais/type_2_block.png");
+  type_3_block = loadImage("blocos/blocos_normais/type_3_block.png");
+  type_4_block = loadImage("blocos/blocos_normais/type_4_block.png");
+  type_5_block = loadImage("blocos/blocos_normais/type_5_block.png");
+  type_6_block = loadImage("blocos/blocos_normais/type_6_block.png");
+  type_7_block = loadImage("blocos/blocos_normais/type_7_block.png");
   
   for (int i = 0; i < 12; i++)
   {
-    type_8_block[i] = loadImage(String.format("blocos_prateados/bloco%d.png", i));
+    type_8_block[i] = loadImage(String.format("blocos/blocos_prateados/bloco%d.png", i));
   }
   
   for (int i = 12; i < 20; i++)
   {
-    type_8_block[i] = loadImage("blocos_prateados/bloco0.png");
+    type_8_block[i] = loadImage("blocos/blocos_prateados/bloco0.png");
   }
   
   for (int i = 0; i < 12; i++)
   {
-    type_9_block[i] = loadImage(String.format("blocos_dourados/bloco%d.png", i));
+    type_9_block[i] = loadImage(String.format("blocos/blocos_dourados/bloco%d.png", i));
   }
   
   for (int i = 12; i < 20; i++)
   {
-    type_9_block[i] = loadImage("blocos_dourados/bloco0.png");
+    type_9_block[i] = loadImage("blocos/blocos_dourados/bloco0.png");
   }
   
   for (int i = 0; i < bola_on_fire.length; i++)
   {
-    bola_on_fire[i] = loadImage(String.format("bola_on_fire/%d.png", i));
+    bola_on_fire[i] = loadImage(String.format("bola/bola_on_fire/%d.png", i));
   }
   
   for (int i = 0; i < multiplier_image.length; i++)
   {
-    multiplier_image[i] = loadImage(String.format("x5/%d.png", i));
+    multiplier_image[i] = loadImage(String.format("powerups/x5/%d.png", i));
   }
   
-  coracao = loadImage("coracao_powerup.png");
-  imagem_bola = loadImage("bola.png");
+  coracao = loadImage("powerups/Life_Gainer/coracao_powerup.png");
+  imagem_bola = loadImage("bola/bola.png");
   
   
-  imagem_background = loadImage("main_background.png");
+  imagem_background = loadImage("backgrounds/main_background.png");
   imagem_background.resize(LARGURA_JANELA, ALTURA_JANELA);
   
-  imagem_background_on_fire = loadImage("background_on_fire.png");
+  imagem_background_on_fire = loadImage("backgrounds/background_on_fire.png");
   imagem_background_on_fire.resize(LARGURA_JANELA, ALTURA_JANELA);
   
-  imagem_header = loadImage("header.png");
+  imagem_header = loadImage("backgrounds/header.png");
   imagem_header.resize(LARGURA_JANELA, ALTURA_HEADER);
-  fireball_imagem = loadImage("fireball.png");
+  fireball_imagem = loadImage("powerups/Fireball/fireball.png");
   
-  borda = loadImage("border.png");
+  borda = loadImage("border/border.png");
   borda.resize(LARGURA_JANELA, ALTURA_JANELA);
   
-  bola_multiplier_imagem = loadImage("bola_multiplier.png");
+  bola_multiplier_imagem = loadImage("powerups/Bola_Multiplier/bola_multiplier.png");
   
-  music = new SoundFile(this, "one_more_day.ogg");
-  VICTORY = new SoundFile(this, "victory.wav");
-  DEFEAT = new SoundFile(this, "defeat.wav");
-  coracao_sound = new SoundFile(this, "coracao_sound.wav");
-  pad_bounce = new SoundFile(this, "pad.wav");
-  picked_up_fireball = new SoundFile(this, "powerup_fire.wav");
-  picked_up_plus2balls = new SoundFile(this, "powerup_plus2balls.wav");
+  music = new SoundFile(this, "game_sounds/one_more_day.ogg");
+  VICTORY = new SoundFile(this, "game_sounds/victory.wav");
+  DEFEAT = new SoundFile(this, "game_sounds/defeat.wav");
+  coracao_sound = new SoundFile(this, "/powerups/Life_Gainer/efeitos_sonoros/coracao_sound.wav");
+  pad_bounce = new SoundFile(this, "pad/efeitos_sonoros/pad.wav");
+  picked_up_fireball = new SoundFile(this, "/powerups/Fireball/efeitos_sonoros/powerup_fire.wav");
+  picked_up_plus2balls = new SoundFile(this, "/powerups/Bola_Multiplier/efeitos_sonoros/powerup_plus2balls.wav");
   
-  //
-  block_hit = new SoundFile(this, "coracao_sound.wav");
+  //SUBSTITUIR BLOCK HIT TO DO
+  block_hit = new SoundFile(this, "powerups/Life_Gainer/efeitos_sonoros/coracao_sound.wav");
   
   frameRate(FRAME_RATE);
   noStroke();
