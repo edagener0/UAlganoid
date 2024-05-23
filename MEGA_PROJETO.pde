@@ -11,8 +11,6 @@ SoundFile music;
 SoundFile picked_up_fireball;
 SoundFile picked_up_plus2balls;
 
-//declarar imagens dos blocos para cada tipo
-//PImage type_0_block;
 PImage type_1_block;
 PImage type_2_block;
 PImage type_3_block;
@@ -94,7 +92,6 @@ final float POSICAO_Y_BOLA = POSICAO_Y_PAD - ALTURA_PAD / 2 - DIAMETRO_BOLA / 2 
 final float BOLA_VEL_X = 5;
 final float BOLA_VEL_Y = 5;
 
-//final float BOLA_MODULO_VEL = sqrt(BOLA_VEL_X * BOLA_VEL_X + BOLA_VEL_Y * BOLA_VEL_Y);
 final float BOLA_MODULO_VEL = LARGURA_BLOCO * 0.15;
 final float POWERUP_MODULO_VEL = LARGURA_BLOCO * 0.025;
 final float PAD_MODULO_VEL = LARGURA_BLOCO * 0.2;
@@ -103,9 +100,9 @@ int VIDAS = 3;
 
 int multiplier = 1;
 
-
 final int ROWS = 15;
 final int COLS = 13;
+
 final float CHANCE_DROP_POWERUPS = 1; //0.05 
 final float MAX_RANDOM_CHANCE = 1 / CHANCE_DROP_POWERUPS;
 
@@ -124,7 +121,6 @@ boolean won_game = false;
 
 boolean[] passed_levels = new boolean[MAX_NUMERO_NIVEIS];
 
-float on_fire_start_time;
 
 ArrayList <Ball> bolas;
 
@@ -175,9 +171,9 @@ void settings()
 
 void setup()
 {
-  imagem_pad = loadImage("pad/pad.png");
-  damaged_block = loadImage("blocos/block_damaged.png");
+  
   fonte = loadFont("Fontes_Texto/title.vlw");
+  
   type_1_block = loadImage("blocos/blocos_normais/type_1_block.png");
   type_2_block = loadImage("blocos/blocos_normais/type_2_block.png");
   type_3_block = loadImage("blocos/blocos_normais/type_3_block.png");
@@ -200,6 +196,8 @@ void setup()
   {
     type_9_block[i] = loadImage(String.format("blocos/blocos_dourados/bloco%d.png", i));
   }
+  
+  damaged_block = loadImage("blocos/block_damaged.png");
   
   for (int i = 12; i < 20; i++)
   {
@@ -235,6 +233,9 @@ void setup()
   
   bola_multiplier_imagem = loadImage("powerups/Bola_Multiplier/bola_multiplier.png");
   
+  imagem_pad = loadImage("pad/pad.png");
+  
+  
   music = new SoundFile(this, "game_sounds/one_more_day.ogg");
   VICTORY = new SoundFile(this, "game_sounds/victory.wav");
   DEFEAT = new SoundFile(this, "game_sounds/defeat.wav");
@@ -262,9 +263,6 @@ void setup()
   life_adders = new ArrayList <AddLife>();
   score_multipliers = new ArrayList <ScoreMultiplier>();
   
-  //fireball = new Fireball(pad.posicao.x, ALTURA_JANELA / 2, 0);
-  //println("min: ", MIN_BORDER_X, "max: ", MAX_BORDER_X);
-  
   blocos.carregar_nivel(nivel_atual, message);
   
   for (int i = 0; i < MAX_NUMERO_NIVEIS; i++)
@@ -272,9 +270,8 @@ void setup()
     passed_levels[i] = false;
   }
   
-  
   textFont(fonte);
-  //load images
+  
   music.play();
   music.amp(music_amp);
 }
@@ -361,7 +358,6 @@ boolean have_lives()
 
 boolean ganhou_jogo()
 {
-  //println(passed_levels);
   for (int i = 0; i < MAX_NUMERO_NIVEIS; i++)
   {
     if (!passed_levels[i]) return false;
@@ -394,16 +390,14 @@ boolean ganhou()
 
 void draw()
 {
-  //println(bola.velocidade);
   if (!bolas.get(0).on_fire) background(imagem_background);
   else background(imagem_background_on_fire);
+  
   if (!music.isPlaying() && music.position() >= music.duration())
   {
     music.play();
     music.amp(music_amp);
   }
-  border.draw();
-  pad.draw();
   
   for (int i = 0; i < bolas.size(); i++)
   {
@@ -411,11 +405,15 @@ void draw()
     temp_bola.before_game(pad, game_on, lost);
     temp_bola.detetar_colisoes(pad, blocos.blocos, header); 
   }
+  
   blocos.verificar_blocos();
   blocos.desenhar_blocos();
+  header.ganhou_nivel();
+  
   header.draw();
   message.draw();
-  header.ganhou_nivel();
+  border.draw();
+  pad.draw();
   
   if (!have_lives()) return;
   if (ganhou()) return;
@@ -453,6 +451,4 @@ void draw()
   {
     score_multipliers.get(i).draw();
   }
-  
-  
 }

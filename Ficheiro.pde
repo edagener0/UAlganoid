@@ -5,8 +5,6 @@ class Ficheiro
   Ficheiro(String caminho_ficheiro)
   {
     this.caminho_ficheiro = caminho_ficheiro;
-    //substituir por ROWS E COLS 15 e 13 respetivamente
-    //this.tipos_blocos = new int[ROWS][COLS];
   }
   
   String[][] parse_file(String delimitador)

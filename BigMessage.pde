@@ -8,6 +8,7 @@ class BigMessage
   float display_time;
   float opacity;
   float opacity_decreaser;  
+  
   BigMessage ()
   {
     this.texto = "";
@@ -16,8 +17,6 @@ class BigMessage
     this.opacity = 0;
   }
 
-  
-  //255 / display_time = TEMOS QUE SUBTRAIR A CADA SEGUNDO 
   void display(String texto, color cor, int display_time)
   {
     this.opacity = 255;

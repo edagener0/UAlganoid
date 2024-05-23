@@ -20,21 +20,29 @@ class Header
   int frame = 0;
   int intervalo_frame_atual = 0;
   int intervalo_frame = 3;
+  
   PImage imagem_x5;
+  
   Header (float x_title, float y_title)
   {
     this.posicao = new PVector(LARGURA_JANELA / 2, ALTURA_HEADER / 2);
     this.x_title = x_title;
     this.y_title = y_title;
-    this.score = 0;
-    this.lives = VIDAS;
     this.altura_texto_lateral = ALTURA_HEADER - ALTURA_BLOCO;
-    this.imagem = imagem_header;
+    
+    this.score = 0;
     this.last_score = 0;
+    
+    this.lives = VIDAS;
+    
+    this.imagem = imagem_header;
+    
     this.display_time = 5000;
     this.start_time = 0;
+    
     this.showing_score = false;
     this.opacidade_last_score = 0;
+    
     this.imagem_x5 = multiplier_image[frame];
   }
 
@@ -78,7 +86,6 @@ class Header
 
   void draw()
   {
-    
     display_background();
     fill(200, 0, 200);
     textSize(LARGURA_BLOCO);
@@ -116,7 +123,5 @@ class Header
       if (frame > 3) frame = 0;
       image(multiplier_image[frame], MIN_BORDER_X, this.altura_texto_lateral - ALTURA_BLOCO * 1.5, LARGURA_BLOCO / 2, LARGURA_BLOCO / 2);
     }
-    
-    
   }
 }

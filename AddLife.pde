@@ -10,13 +10,20 @@ class AddLife extends PowerUp
   
   void draw()
   {
-    if (super.visivel && super.colisao_pad())
+    if (super.visivel && super.colisao_pad() && game_on)
     {
       coracao_sound.play();
       coracao_sound.amp(powerup_amp);
       header.lives++;
-      
       if (header.lives > VIDAS) header.lives = VIDAS;
+      
+      for (int i = 0; i < life_adders.size(); i++)
+      {
+        if (!life_adders.get(i).visivel)
+        {
+          life_adders.remove(i);
+        }
+      }
 
     }
     super.draw();

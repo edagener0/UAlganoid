@@ -4,11 +4,9 @@ class BallTriplicator extends PowerUp
   float y;
   int tipo;
   
-  boolean is_active;
   BallTriplicator(float x, float y, int tipo)
   {
     super(x, y, tipo);
-    this.is_active = is_active;
   }
   
   void triplicate()
@@ -32,7 +30,7 @@ class BallTriplicator extends PowerUp
   {
     for (int i = 0; i < triplicators.size(); i++)
     {
-      if (super.posicao.y == 0 || !super.visivel) 
+      if (!triplicators.get(i).visivel) 
       {
         triplicators.remove(i);
       }
@@ -42,13 +40,10 @@ class BallTriplicator extends PowerUp
   void draw()
   {
     
-    if (super.visivel && super.colisao_pad())
+    if (super.visivel && super.colisao_pad() && game_on)
     {
       picked_up_plus2balls.play();
       picked_up_plus2balls.amp(powerup_amp);
-      //println("executing");
-      super.posicao.y = 0;
-      super.visivel = false;
       triplicate();
       remove_triplicator();
     }

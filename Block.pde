@@ -22,13 +22,13 @@ class Block
   
   int score;
   
-  
   int tipo;
-  
+ 
   boolean exposto;
   PImage imagem;
   
   int frame_atual = 0;
+  
   Block(float x, float y, float largura, int tipo, boolean exposto)
   {
     this.x = x;
@@ -43,11 +43,10 @@ class Block
     this.min_y = this.y - this.altura / 2 + ALTURA_HEADER;
     this.max_y = this.y + this.altura / 2 + ALTURA_HEADER;
     
-    //this.cor = cor;
-    //this.vida = vida;
     this.tipo = tipo;
-    //this.imagem = type_0_block;
+    
     this.exposto = exposto;
+  
     this.vida_on_fire = 1;
     
     switch (this.tipo)
@@ -127,17 +126,12 @@ class Block
     this.cor = INVISIBLE;
     this.exposto = false;
     
-    //header.last_score = this.score * multiplier;
     int last_score = this.score * multiplier;
     header.score += last_score;
     
-    //RANDOM RETORNA FLOAT OH NAO BOOM BOOM BOOM
     if (1 == int(random(1, MAX_RANDOM_CHANCE + 1)))
     {
-      //METE FLOAT AQUI PARA COMPROVAR
       int tipo_powerup = int(random(0, 4));
-      //println("tipo", tipo_powerup);
-      println("tipo_powerup", tipo_powerup);
       switch (tipo_powerup)
       {
         case 0:
@@ -166,8 +160,6 @@ class Block
   void draw()
   {
     if (this.vida == 0) return;
-    //if (this.exposto) fill(RED);
-    //else fill(this.cor);
     fill(this.cor);
     stroke(BLUE);
     strokeWeight(LARGURA_BLOCO * 0.1);
@@ -175,7 +167,6 @@ class Block
     if (this.tipo == 8) 
     {
       if (intervalo_frames_atual >= intervalo_frames) this.imagem = type_8_block[frame_atual++];
-      
     }
     else if (this.tipo == 9) 
     {

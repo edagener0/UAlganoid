@@ -21,18 +21,24 @@ class ScoreMultiplier extends PowerUp
     {
       this.active = false;
       multiplier = 1;
+      for (int i = 0; i < score_multipliers.size(); i++)
+      {
+        if (!score_multipliers.get(i).visivel)
+        {
+          score_multipliers.remove(i);
+        }
+      }
     }
   }
   
   
   void draw()
   {
-    if (super.visivel && super.colisao_pad())
+    if (super.visivel && super.colisao_pad() && game_on)
     {
        this.start_time = millis();
        this.active = true;
        multiplier = 5;
-       println("APANHASTE POWERUP");
     }
     
     if (this.active) has_passed();

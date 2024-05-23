@@ -57,7 +57,6 @@ class PowerUp
         this.cor_letra = RED;
         this.cor_container = PURPLE;
         this.imagem = coracao;
-        //println("OLHA ISTO TA TUOD FOIDO CARALHO");
         break;
       case 3:
         this.letra = 's';

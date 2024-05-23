@@ -6,7 +6,7 @@ class Blocks
     this.blocos = new Block[ROWS][COLS];
     return;
   }
-  
+ 
   void verificar_blocos()
   {
     boolean esquerda, direita, cima, baixo;
@@ -16,18 +16,11 @@ class Blocks
       for (int j = 0; j < COLS; j++)
       {
         if (this.blocos[i][j].exposto) continue;
+        
         cima = false;
         baixo = false;
         direita = false;
         esquerda = false;
-        /*
-        if (this.blocos[i][j - 1].vida == 0 ||
-        this.blocos[i][j + 1].vida == 0 ||
-        this.blocos[i + 1][j].vida == 0 ||
-        this.blocos[i - 1][j].vida == 0)
-        {
-          this.blocos[i][j].exposto = true;
-        }*/
         
         //verificar esquerda do bloco
         if (i-1 >= 0) cima = true;
@@ -50,7 +43,6 @@ class Blocks
         }
         if (baixo)
         {
-          //println("baixo:", i, j);
           if (this.blocos[i + 1][j].vida == 0)
           {
             this.blocos[i][j].exposto = true;
@@ -81,14 +73,10 @@ class Blocks
   {
     int offset_x = LARGURA_BLOCO;
     int offset_y = ALTURA_BLOCO + ALTURA_BLOCO / 2;
-    //Block bloco = new Block (LARGURA_BLOCO, ALTURA_BLOCO + ALTURA_BLOCO / 2, LARGURA_BLOCO, GREEN, 5);
-    //bloco.draw();
-    
-    // ver defensividade
+
     Ficheiro ficheiro = new Ficheiro("levels/" + caminho_ficheiro);
     String[][] tipos_blocos = ficheiro.parse_file(",");
-    
-    //println(tipos_blocos[0]);
+ 
     max_score = 0;
     score_atual = 0;
     
@@ -96,16 +84,14 @@ class Blocks
     {
       for (int j = 0; j < COLS; j++)
       {
-        //println("bloco atual:", tipos_blocos[i][j]);
         blocos[i][j] = new Block (offset_x, offset_y, LARGURA_BLOCO, int(tipos_blocos[i][j]), false);
         offset_x += LARGURA_BLOCO;
         if (blocos[i][j].tipo != 9) max_score += blocos[i][j].score;
       }
+      
       offset_x = LARGURA_BLOCO;
       offset_y += ALTURA_BLOCO;
     }
-    
-    println(max_score);
   }
   
   void carregar_nivel(int nivel, BigMessage message)
@@ -131,7 +117,6 @@ class Blocks
       {
         blocos[i][j].draw();
       }
-      
     }
   }
 }
