@@ -185,6 +185,8 @@ class Ball
         // caso a distância entre o centro da bola e o ponto de contacto seja inferior ou igual ao raio da bola, há colisão
         if (dist <= this.raio && bloco.vida != 0)
         {
+          block_hit.play();
+          block_hit.amp(efeitos);
           if (bolas.get(0).on_fire && bloco.tipo == 9) 
           {
             colisao_bloco(bloco, x_prox, y_prox);

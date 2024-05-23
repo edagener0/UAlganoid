@@ -106,7 +106,7 @@ int multiplier = 1;
 final int ROWS = 15;
 final int COLS = 13;
 
-final float CHANCE_DROP_POWERUPS = 1; //0.05 
+final float CHANCE_DROP_POWERUPS = 0.05; //0.05 
 final float MAX_RANDOM_CHANCE = 1 / CHANCE_DROP_POWERUPS;
 
 int MAX_NUMERO_NIVEIS = 25;
@@ -254,7 +254,7 @@ void setup()
   picked_up_plus2balls = new SoundFile(this, "/powerups/Bola_Multiplier/efeitos_sonoros/powerup_plus2balls.wav");
   
   //SUBSTITUIR BLOCK HIT TO DO
-  block_hit = new SoundFile(this, "powerups/Life_Gainer/efeitos_sonoros/coracao_sound.wav");
+  block_hit = new SoundFile(this, "blocos/block_hit.wav");
   
   frameRate(FRAME_RATE);
   noStroke();
