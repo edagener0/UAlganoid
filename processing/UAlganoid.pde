@@ -324,11 +324,11 @@ void setup()
   imagem_pad = loadImage("pad/pad.png");
 
 
-  music = new SoundFile(this, "game_sounds/music.mp3");
-  VICTORY = new SoundFile(this, "game_sounds/victory.wav");
-  DEFEAT = new SoundFile(this, "game_sounds/defeat.wav");
-  pad_bounce = new SoundFile(this, "pad/efeitos_sonoros/pad.wav");
-  passed_level = new SoundFile(this, "game_sounds/passed_level.wav");
+  music = new SoundFile(this, "/game_sounds/music.mp3");
+  VICTORY = new SoundFile(this, "/game_sounds/victory.wav");
+  DEFEAT = new SoundFile(this, "/game_sounds/defeat.wav");
+  pad_bounce = new SoundFile(this, "/pad/efeitos_sonoros/pad.wav");
+  passed_level = new SoundFile(this, "/game_sounds/passed_level.wav");
   picked_up_fireball = new SoundFile(this, "/powerups/Fireball/efeitos_sonoros/powerup_fire.wav");
   picked_up_plus2balls = new SoundFile(this, "/powerups/Bola_Multiplier/efeitos_sonoros/powerup_plus2balls.wav");
   picked_up_coracao = new SoundFile(this, "/powerups/Life_Gainer/efeitos_sonoros/coracao_sound.wav");
