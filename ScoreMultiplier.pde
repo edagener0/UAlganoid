@@ -15,6 +15,10 @@ class ScoreMultiplier extends PowerUp
     this.duration = 5000;
   }
   
+
+  // -----------------------------------------------------------
+  // Função que verifica se já passou o tempo de vida do PowerUp
+  // -----------------------------------------------------------
   void has_passed()
   {
     if (millis() - this.start_time >= this.duration)  
@@ -34,16 +38,17 @@ class ScoreMultiplier extends PowerUp
   
   void draw()
   {
-    if (super.visivel && super.colisao_pad() && game_on)
+    if (super.is_active())
     {
        this.start_time = millis();
        this.active = true;
        multiplier = 5;
+       picked_up_x5.play();
+       picked_up_x5.amp(efeitos);
     }
     
     if (this.active) has_passed();
 
     super.draw();
   }
-  
 }

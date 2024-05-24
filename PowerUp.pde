@@ -38,7 +38,7 @@ class PowerUp
     this.max_y = this.posicao.y + metade_largura;
     this.min_y = this.posicao.y - metade_largura;
     
-    switch(this.tipo)
+    switch (this.tipo)
     {
       case 0:
         this.letra = 'm';
@@ -67,6 +67,10 @@ class PowerUp
     }
   }
   
+
+  // --------------------------------------------------
+  // Função que verifica se o PowerUp colidiu com o pad
+  // --------------------------------------------------
   boolean colisao_pad()
   {
     if (this.min_x >= pad.min_x && this.max_x <= pad.max_x && this.max_y >= pad.min_y && this.min_y <= pad.max_y)
@@ -79,11 +83,23 @@ class PowerUp
     return false;
   }
   
+
+  // ----------------------------------------
+  // Função que verifica o PowerUp está ativo
+  // ----------------------------------------
+  boolean is_active()
+  {
+    if (this.visivel && this.colisao_pad() && game_on) return true;
+    return false;
+  }
+  
+  
   void update()
   {
     this.posicao.add(this.velocidade);
     this.max_y = this.posicao.y + this.metade_largura;
   }
+  
   
   void draw()
   {

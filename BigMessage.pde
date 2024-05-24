@@ -8,7 +8,7 @@ class BigMessage
   float display_time;
   float opacity;
   float opacity_decreaser;  
-  
+
   BigMessage ()
   {
     this.texto = "";
@@ -16,6 +16,7 @@ class BigMessage
     this.y = ALTURA_JANELA / 2;
     this.opacity = 0;
   }
+
 
   void display(String texto, color cor, int display_time)
   {
@@ -26,7 +27,8 @@ class BigMessage
     this.display_time = display_time;
     this.opacity_decreaser = 10;
   }
-  
+
+
   void draw()
   {
     if (millis() - this.start_time >= this.display_time)

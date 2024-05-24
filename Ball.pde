@@ -52,7 +52,7 @@ class Ball
   // --------------------------------------------------------------------------------------------------
   // Função responsável por detetar colisões com o pad e inverter o movimento da bola no angulo correto
   // --------------------------------------------------------------------------------------------------
-  void colisao_pad(Pad pad)
+  void colisao_pad()
   {
     // return caso o jogo ainda não tenha começado, evitando calculos desnecessários
     if (!game_on) return;
@@ -86,7 +86,10 @@ class Ball
     if (((ponto_contacto - this.posicao.x)*(ponto_contacto - this.posicao.x)) + ((pad.min_y-this.posicao.y)*(pad.min_y-this.posicao.y)) <= this.raio*this.raio)
     {
       inverter_mov(false, true);
+      
+      // tocar o som de colisão com o pad
       pad_bounce.play();
+      pad_bounce.amp(efeitos * 0.7);
       
       // vetor velocidade recebe um novo angulo, baseado no teta calculado anteriormente
       PVector.fromAngle(teta - HALF_PI, this.velocidade);
@@ -101,25 +104,31 @@ class Ball
   // -----------------------------------------------------------------------------------
   // Função responsável por detetar colisões com a parede e inverter o movimento da bola
   // -----------------------------------------------------------------------------------
-  void colisao_parede(Pad pad, Header header)
+  void colisao_parede()
   {
     if (((MIN_BORDER_Y-this.posicao.y)*(MIN_BORDER_Y-this.posicao.y)) <= this.raio*this.raio)
     {
       // colisao no topo
       inverter_mov(false, true);
       this.posicao.y = MIN_BORDER_Y + this.raio;
+      border_hit.play();
+      border_hit.amp(efeitos);
     }
     else if (((MIN_BORDER_X - this.posicao.x)*(MIN_BORDER_X - this.posicao.x)) <= this.raio*this.raio)
     {
       // colisao do lado esquerdo
       inverter_mov(true, false);
       this.posicao.x = MIN_BORDER_X + this.raio;
+      border_hit.play();
+      border_hit.amp(efeitos);
     }
     else if (((MAX_BORDER_X - this.posicao.x)*(MAX_BORDER_X - this.posicao.x)) <= this.raio*this.raio)
     {
       // colisao do lado direito
       inverter_mov(true, false);
       this.posicao.x = MAX_BORDER_X - this.raio;
+      border_hit.play();
+      border_hit.amp(efeitos * 0.75);
     }
     else if (this.posicao.y > MAX_BORDER_Y)
     {
@@ -164,13 +173,13 @@ class Ball
   // -------------------------------------------------------
   // Função que percorre o array de blocos e deteta colisões
   // -------------------------------------------------------
-  void colisao_blocos(Block[][] blocos)
+  void colisao_blocos()
   {
     for (int i = 0; i < ROWS; i++)
     {
       for (int j = 0; j < COLS; j++)
       {
-        Block bloco = blocos[i][j];
+        Block bloco = blocos.blocos[i][j];
 
         // caso o bloco não esteja exposto, evitamos iterações e calculos desnecessários
         if (!bloco.exposto) continue;
@@ -205,8 +214,10 @@ class Ball
           // caso o bloco tenha 0 de vida, é "destruido"
           if (bloco.vida == 0 || bloco.vida_on_fire == 0)
           {
-            bloco.destruir(header);
+            bloco.destruir();
           }
+          
+          blocos.verificar_blocos();
           
           // return evita que blocos que estejam proximos sejam tambem destruidos
           return;
@@ -216,21 +227,21 @@ class Ball
   }
 
 
-  // -------------------------------------------------------------------------------------------------------------------
+  // --------------------------------------------------------------------------------------------------------------------
   // Função que trata de chamar todas as outras funções de verificar colisões, passando os objetos necessarios a cada uma
-  // -------------------------------------------------------------------------------------------------------------------
-  void detetar_colisoes(Pad pad, Block[][] blocos, Header header)
+  // --------------------------------------------------------------------------------------------------------------------
+  void detetar_colisoes()
   {
-    colisao_pad(pad);
-    colisao_parede(pad, header);
-    colisao_blocos(blocos);
+    colisao_pad();
+    colisao_parede();
+    colisao_blocos();
   }
 
 
   // ---------------------------------------------------------------
   // Função que coloca a bola em cima do pad antes que o jogo comece
   // ---------------------------------------------------------------
-  void before_game(Pad pad, boolean game_on)
+  void before_game()
   {
     // return caso a bola já esteja em movimento, ou seja, o jogo já começou
     if (game_on) return;

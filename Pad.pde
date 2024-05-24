@@ -3,9 +3,6 @@ class Pad
   PVector posicao;
   PVector velocidade;
   
-  float x;
-  float y;
-  
   float min_y;
   float max_y;
   
@@ -42,56 +39,58 @@ class Pad
     this.imagem = imagem_pad;
   }
 
- void mover_direita()
- {
-   this.velocidade.x = 1;
-   this.velocidade.setMag(PAD_MODULO_VEL);
- }
+  void mover_direita()
+  {
+    this.velocidade.x = 1;
+    this.velocidade.setMag(PAD_MODULO_VEL);
+  }
+
+  void mover_esquerda()
+  {
+    this.velocidade.x = -1;
+    this.velocidade.setMag(PAD_MODULO_VEL);
+  }
+
+
+  void update()
+  {
+  if (!keyPressed) this.velocidade.x = 0;
+
+  PVector nova_posicao = this.posicao.copy();
+  float min_x_temp, max_x_temp;
+
+  nova_posicao = nova_posicao.add(velocidade);
+
+  min_x_temp = nova_posicao.x - this.centro;
+  max_x_temp = nova_posicao.x + this.centro;
+
+  if (min_x_temp < MIN_BORDER_X)
+  {
+    this.posicao.x = MIN_BORDER_X + this.largura / 2;
+    this.min_x = MIN_BORDER_X;
+    this.max_x = this.posicao.x + this.largura / 2;
+    return;
+  }
+
+  else if (max_x_temp > MAX_BORDER_X)
+  {
+    this.posicao.x = MAX_BORDER_X - this.largura / 2;
+    this.min_x = this.posicao.x - this.largura / 2;
+    this.max_x = MAX_BORDER_X;
+    return;
+  }
+   
+  this.min_x = min_x_temp;
+  this.max_x = max_x_temp;
+  this.posicao.add(velocidade);
+  }
  
- void mover_esquerda()
- {
-   this.velocidade.x = -1;
-   this.velocidade.setMag(PAD_MODULO_VEL);
- }
- 
- void update()
- {
-   if (!keyPressed) this.velocidade.x = 0;
-   
-   PVector nova_posicao = this.posicao.copy();
-   float min_x_temp, max_x_temp;
-   
-   nova_posicao = nova_posicao.add(velocidade);
-   
-   min_x_temp = nova_posicao.x - this.centro;
-   max_x_temp = nova_posicao.x + this.centro;
-   
-   if (min_x_temp < MIN_BORDER_X)
+   void reset()
    {
-     this.posicao.x = MIN_BORDER_X + this.largura / 2;
-     this.min_x = MIN_BORDER_X;
-     this.max_x = this.posicao.x + this.largura / 2;
-     return;
+     this.posicao.x = POSICAO_X_PAD;
    }
-  
-   else if (max_x_temp > MAX_BORDER_X)
-   {
-     this.posicao.x = MAX_BORDER_X - this.largura / 2;
-     this.min_x = this.posicao.x - this.largura / 2;
-     this.max_x = MAX_BORDER_X;
-     return;
-   }
-   
-   this.min_x = min_x_temp;
-   this.max_x = max_x_temp;
-   this.posicao.add(velocidade);
-}
- 
- void reset()
- {
-   this.posicao.x = POSICAO_X_PAD;
- }
-  
+
+
 void draw()
 {
     update();

@@ -28,7 +28,7 @@ class Header
     this.posicao = new PVector(LARGURA_JANELA / 2, ALTURA_HEADER / 2);
     this.x_title = x_title;
     this.y_title = y_title;
-    this.altura_texto_lateral = ALTURA_HEADER - ALTURA_BLOCO;
+    this.altura_texto_lateral = ALTURA_HEADER - ALTURA_BLOCO * 0.7;
     
     this.score = 0;
     this.last_score = 0;
@@ -76,7 +76,7 @@ class Header
     this.last_score = score_ganho;
     this.opacidade_last_score = 255;
   }
-  
+
   void has_passed()
   {
     if (millis() - this.start_time >= this.display_time)
@@ -90,19 +90,19 @@ class Header
   void draw()
   {
     display_background();
-    fill(200, 0, 200);
+    fill(WHITE);
     textSize(LARGURA_BLOCO);
     textAlign(CENTER, CENTER);
     text("UALGANOID", this.x_title, this.y_title);
 
     //texto lateral
     fill(WHITE);
-    textSize(0.6 * LARGURA_BLOCO);
+    textSize(0.5 * LARGURA_BLOCO);
     textAlign(LEFT, CENTER);
     text("Score: " + this.score, MIN_BORDER_X, this.altura_texto_lateral);
 
     fill(WHITE);
-    textSize(0.6 * LARGURA_BLOCO);
+    textSize(0.5 * LARGURA_BLOCO);
     textAlign(RIGHT, CENTER);
     text("Lives: " + this.lives, MAX_BORDER_X, this.altura_texto_lateral);
     
@@ -110,7 +110,8 @@ class Header
     {
       fill(WHITE, this.opacidade_last_score);
       textSize(LARGURA_BLOCO / 3);
-      text(String.format("+%d", this.last_score), LARGURA_JANELA / 2, this.altura_texto_lateral + ALTURA_BLOCO / 2);
+      textAlign(CENTER, CENTER);
+      text(String.format("+%d", this.last_score), LARGURA_JANELA / 2, this.altura_texto_lateral + ALTURA_BLOCO / 5);
     }
     this.opacidade_last_score -= 5;
     if (this.opacidade_last_score < 0) this.opacidade_last_score = 0;

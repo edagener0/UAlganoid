@@ -119,8 +119,9 @@ class Block
         break;
     }
   }
-  
-  void destruir(Header header)
+
+
+  void destruir()
   {
     this.vida = 0;
     this.cor = INVISIBLE;
@@ -156,7 +157,8 @@ class Block
     
     if (this.tipo != 9) score_atual += this.score;
   }
-  
+
+
   void draw()
   {
     if (this.vida == 0) return;

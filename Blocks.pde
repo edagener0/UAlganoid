@@ -88,7 +88,6 @@ class Blocks
         offset_x += LARGURA_BLOCO;
         if (blocos[i][j].tipo != 9) max_score += blocos[i][j].score;
       }
-      
       offset_x = LARGURA_BLOCO;
       offset_y += ALTURA_BLOCO;
     }
@@ -97,9 +96,7 @@ class Blocks
   void carregar_nivel(int nivel, BigMessage message)
   {
     if (nivel > MAX_NUMERO_NIVEIS) return;
-    String caminho_nivel = "level_" + nivel + ".lvl";
-    println(caminho_nivel);
-    inicializar_blocos(caminho_nivel);
+    inicializar_blocos("level_" + nivel + ".lvl");
     message.display("Level " + nivel, BIGMESSAGE_COLOR, 2500);
     remove_fireballs();
     remove_triplicators();
@@ -107,6 +104,7 @@ class Blocks
     remove_life_adders();
     remove_score_multipliers();
     bolas.add(new Ball(LARGURA_JANELA/2, POSICAO_Y_BOLA, 0, 0, DIAMETRO_BOLA, GRAY, false));
+    verificar_blocos();
   }
   
   void desenhar_blocos()

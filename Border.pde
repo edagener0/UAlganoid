@@ -14,8 +14,6 @@ class Border
   {
     fill(this.cor);
     rectMode(CENTER);
-    // *7 porque é metade de 14 blocos e *0.2 porque é a metade da altura de cada bloco
-    //abc
     if (!texturas_ligadas)
     {
       rect(this.largura * 7, this.largura * 0.25 + ALTURA_HEADER, this.largura * 14, this.largura * 0.5);
