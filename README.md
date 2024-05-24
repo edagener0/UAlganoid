@@ -15,7 +15,7 @@ Aplicámos texturas, sons e cores aos jogo para o tornar mais dinâmico. Para al
 Objetivo do jogo: Fazer com que a bola bata no pad e partir os blocos, até passar de nível. Ao completar os 25 níveis o utilizador ganha o jogo.
 Se o utilizador perder as 3 vidas. Perde o jogo
 # Cheat Codes
---> Teclas para spawnar PowerUps são 'f' para a Fireball, 'l' para o LifeAdder, 's' para o ScoreMultiplier e 'm' para o BallMultiplier.
+--> Teclas para spawnar PowerUps são 'f' para a Fireball, 'l' para o LifeAdder, 's' para o ScoreMultiplier e 'm' para o BallMultiplier.\n
 --> Os números de 1 a 5 permitem ao utilizador saltar para qualquer nível nesse intervalo de níveis.
 --> O tecla 'w' faz com que o utilizador ganhe instantâneamente o nível em questão.
 
