@@ -10,14 +10,14 @@ Aplicámos texturas, sons e cores aos jogo para o tornar mais dinâmico. Para al
 
 # Jogabilidade 
 --> Seta para a direita faz com que o pad se movimente para a direita. <br>
---> Seta para a esquerda faz com que o pad se movimente para a esquerda.
---> Barra de espaços inicializa o jogo quando a bola está parada em cima do pad.
-Objetivo do jogo: Fazer com que a bola bata no pad e partir os blocos, até passar de nível. Ao completar os 25 níveis o utilizador ganha o jogo.
-Se o utilizador perder as 3 vidas. Perde o jogo
+--> Seta para a esquerda faz com que o pad se movimente para a esquerda. <br>
+--> Barra de espaços inicializa o jogo quando a bola está parada em cima do pad. <br>
+--> Objetivo do jogo: Fazer com que a bola bata no pad e partir os blocos, até passar de nível. Ao completar os 25 níveis o utilizador ganha o jogo. <br>
+Se o utilizador perder as 3 vidas perde o jogo.
 # Cheat Codes
-Teclas para spawnar PowerUps são 'f' para a Fireball, 'l' para o LifeAdder, 's' para o ScoreMultiplier e 'm' para o BallMultiplier.
-Os números de 1 a 5 permitem ao utilizador saltar para qualquer nível nesse intervalo de níveis.
-O tecla 'w' faz com que o utilizador ganhe instantâneamente o nível em questão.
+--> Teclas para spawnar PowerUps são 'f' para a Fireball, 'l' para o LifeAdder, 's' para o ScoreMultiplier e 'm' para o BallMultiplier.<br>
+--> Os números de 1 a 5 permitem ao utilizador saltar para qualquer nível nesse intervalo de níveis.<br>
+--> O tecla 'w' faz com que o utilizador ganhe instantâneamente o nível em questão.
 
 
 
