@@ -273,7 +273,7 @@ void setup()
   
   for (int i = 0; i < 12; i++)
   {
-    type_8_block[i] = loadImage(String.format("blocos/blocos_prateados/bloco%d.png", i));
+    type_8_block[i] = loadImage("blocos/blocos_prateados/bloco" + i + ".png");
   }
   
   for (int i = 12; i < 20; i++)
@@ -283,7 +283,7 @@ void setup()
   
   for (int i = 0; i < 12; i++)
   {
-    type_9_block[i] = loadImage(String.format("blocos/blocos_dourados/bloco%d.png", i));
+    type_9_block[i] = loadImage("blocos/blocos_dourados/bloco" + i + ".png");
   }
   
   damaged_block = loadImage("blocos/block_damaged.png");
@@ -295,12 +295,12 @@ void setup()
   
   for (int i = 0; i < bola_on_fire.length; i++)
   {
-    bola_on_fire[i] = loadImage(String.format("bola/bola_on_fire/%d.png", i));
+    bola_on_fire[i] = loadImage("bola/bola_on_fire/" + i + ".png");
   }
   
   for (int i = 0; i < multiplier_image.length; i++)
   {
-    multiplier_image[i] = loadImage(String.format("powerups/x5/%d.png", i));
+    multiplier_image[i] = loadImage("powerups/x5/" + i + ".png");
   }
   
   coracao = loadImage("powerups/Life_Gainer/coracao_powerup.png");

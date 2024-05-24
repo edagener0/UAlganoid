@@ -111,7 +111,7 @@ class Header
       fill(WHITE, this.opacidade_last_score);
       textSize(LARGURA_BLOCO / 3);
       textAlign(CENTER, CENTER);
-      text(String.format("+%d", this.last_score), LARGURA_JANELA / 2, this.altura_texto_lateral + ALTURA_BLOCO / 5);
+      text("+" + this.last_score, LARGURA_JANELA / 2, this.altura_texto_lateral + ALTURA_BLOCO / 5);
     }
     this.opacidade_last_score -= 5;
     if (this.opacidade_last_score < 0) this.opacidade_last_score = 0;
