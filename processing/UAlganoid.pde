@@ -287,13 +287,13 @@ void setup()
   coracao = loadImage("powerups/Life_Gainer/coracao_powerup.png");
   imagem_bola = loadImage("bola/bola.png");
 
-  imagem_background = loadImage("backgrounds/main_background.png");
+  imagem_background = loadImage("data/backgrounds/main_background.png");
   imagem_background.resize(LARGURA_JANELA, ALTURA_JANELA);
 
   imagem_background_on_fire = loadImage("backgrounds/background_on_fire.png");
   imagem_background_on_fire.resize(LARGURA_JANELA, ALTURA_JANELA);
 
-  imagem_header = loadImage("backgrounds/header.png");
+  imagem_header = loadImage("data/backgrounds/header.png");
   imagem_header.resize(LARGURA_JANELA, ALTURA_HEADER);
   fireball_imagem = loadImage("powerups/Fireball/fireball.png");
 
