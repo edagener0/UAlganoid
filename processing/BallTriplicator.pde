@@ -42,8 +42,7 @@ class BallTriplicator extends PowerUp
     
     if (super.is_active())
     {
-      picked_up_plus2balls.play();
-      picked_up_plus2balls.amp(efeitos);
+      
       triplicate();
       remove_triplicator();
     }

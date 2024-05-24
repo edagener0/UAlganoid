@@ -12,8 +12,6 @@ class AddLife extends PowerUp
   {
     if (super.is_active())
     {
-      picked_up_coracao.play();
-      picked_up_coracao.amp(efeitos);
       header.lives++;
       if (header.lives > VIDAS) header.lives = VIDAS;
       

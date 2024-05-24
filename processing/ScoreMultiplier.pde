@@ -43,8 +43,7 @@ class ScoreMultiplier extends PowerUp
        this.start_time = millis();
        this.active = true;
        multiplier = 5;
-       picked_up_x5.play();
-       picked_up_x5.amp(efeitos);
+       
     }
     
     if (this.active) has_passed();

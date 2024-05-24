@@ -52,8 +52,7 @@ class Fireball extends PowerUp
     
     if (super.is_active())
     {
-      picked_up_fireball.play();
-      picked_up_fireball.play(efeitos);
+      
       if(!this.is_active)
       {
         activate();

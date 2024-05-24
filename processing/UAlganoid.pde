@@ -1,5 +1,3 @@
-import processing.sound.*;
-
 // cores utilizadas ao longo do programa
 final color INVISIBLE = color(0, 0, 0, 0);
 final color GRAY = color(150, 150, 150);
@@ -63,23 +61,6 @@ final float MAX_RANDOM_CHANCE = 1 / CHANCE_DROP_POWERUPS;
 
 final float efeitos = 0.6;
 final float music_amp = 0.15;
-
-
-SoundFile VICTORY;
-SoundFile DEFEAT;
-SoundFile pad_bounce;
-SoundFile block_hit;
-SoundFile border_hit;
-SoundFile passed_level;
-
-SoundFile music;
-
-SoundFile picked_up_fireball;
-SoundFile picked_up_plus2balls;
-SoundFile picked_up_coracao;
-SoundFile picked_up_x5;
-
-
 
 PImage type_1_block;
 PImage type_2_block;
@@ -323,21 +304,6 @@ void setup()
 
   imagem_pad = loadImage("pad/pad.png");
 
-
-  music = new SoundFile(this, "/game_sounds/music.mp3");
-  VICTORY = new SoundFile(this, "/game_sounds/victory.wav");
-  DEFEAT = new SoundFile(this, "/game_sounds/defeat.wav");
-  pad_bounce = new SoundFile(this, "/pad/efeitos_sonoros/pad.wav");
-  passed_level = new SoundFile(this, "/game_sounds/passed_level.wav");
-  picked_up_fireball = new SoundFile(this, "/powerups/Fireball/efeitos_sonoros/powerup_fire.wav");
-  picked_up_plus2balls = new SoundFile(this, "/powerups/Bola_Multiplier/efeitos_sonoros/powerup_plus2balls.wav");
-  picked_up_coracao = new SoundFile(this, "/powerups/Life_Gainer/efeitos_sonoros/coracao_sound.wav");
-  picked_up_x5 = new SoundFile(this, "/powerups/x5/efeitos_sonoros/x5.wav");
-
-  block_hit = new SoundFile(this, "blocos/block_hit.wav");
-  border_hit = new SoundFile(this, "border/hit.wav");
-
-
   pad = new Pad(POSICAO_X_PAD, POSICAO_Y_PAD, LARGURA_PAD, ALTURA_PAD, RED);
   border = new Border(LARGURA_BLOCO, YELLOW);
   bola = new Ball(LARGURA_JANELA/2, POSICAO_Y_BOLA, 0, 0, DIAMETRO_BOLA, GRAY, false);
@@ -361,10 +327,6 @@ void setup()
   }
 
   textFont(fonte);
-
-  music.cue(50);
-  music.play();
-  music.amp(music_amp);
   
   blocos.verificar_blocos();
 }
@@ -466,8 +428,6 @@ boolean have_lives()
       remove_score_multipliers();
       
       message.display("Game Over!", RED, 4500);
-      DEFEAT.play();
-      DEFEAT.amp(efeitos);
       game_ended = true;
     }
     lost = true;
@@ -495,8 +455,6 @@ boolean ganhou_jogo()
     remove_score_multipliers();
     
     message.display("Victory!!", CYAN, 4500);
-    VICTORY.play();
-    VICTORY.amp(efeitos);
     game_ended = true;
   }
   won_game = true;
@@ -517,8 +475,6 @@ boolean ganhou()
     blocos.carregar_nivel(nivel_atual, message);
     won_level = false;
     bolas.get(0).reset(pad);
-    passed_level.play();
-    passed_level.amp(efeitos);
     return true;
   }
   return false;
@@ -527,12 +483,6 @@ boolean ganhou()
 
 void update()
 {
-  if (!music.isPlaying())
-  {
-    music.play();
-    music.amp(music_amp);
-  }
-
   if (texturas_ligadas)
   {
     if (!bolas.get(0).on_fire) background(imagem_background);

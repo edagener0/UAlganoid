@@ -87,9 +87,6 @@ class Ball
     {
       inverter_mov(false, true);
       
-      // tocar o som de colisão com o pad
-      pad_bounce.play();
-      pad_bounce.amp(efeitos * 0.7);
       
       // vetor velocidade recebe um novo angulo, baseado no teta calculado anteriormente
       PVector.fromAngle(teta - HALF_PI, this.velocidade);
@@ -111,24 +108,18 @@ class Ball
       // colisao no topo
       inverter_mov(false, true);
       this.posicao.y = MIN_BORDER_Y + this.raio;
-      border_hit.play();
-      border_hit.amp(efeitos);
     }
     else if (((MIN_BORDER_X - this.posicao.x)*(MIN_BORDER_X - this.posicao.x)) <= this.raio*this.raio)
     {
       // colisao do lado esquerdo
       inverter_mov(true, false);
       this.posicao.x = MIN_BORDER_X + this.raio;
-      border_hit.play();
-      border_hit.amp(efeitos);
     }
     else if (((MAX_BORDER_X - this.posicao.x)*(MAX_BORDER_X - this.posicao.x)) <= this.raio*this.raio)
     {
       // colisao do lado direito
       inverter_mov(true, false);
       this.posicao.x = MAX_BORDER_X - this.raio;
-      border_hit.play();
-      border_hit.amp(efeitos * 0.75);
     }
     else if (this.posicao.y > MAX_BORDER_Y)
     {
@@ -194,8 +185,7 @@ class Ball
         // caso a distância entre o centro da bola e o ponto de contacto seja inferior ou igual ao raio da bola, há colisão
         if (dist <= this.raio && bloco.vida != 0)
         {
-          block_hit.play();
-          block_hit.amp(efeitos);
+        
           if (bolas.get(0).on_fire && bloco.tipo == 9) 
           {
             colisao_bloco(bloco, x_prox, y_prox);
