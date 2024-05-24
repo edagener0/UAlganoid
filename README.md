@@ -1,4 +1,4 @@
-#UAlganoid
+# UAlganoid
 
 Projeto desenvolvido no âmbito da disciplina de Laboratório de Programação do Curso de Engenharia Informática da [Universidade do Algarve](https://www.ualg.pt/).
 
