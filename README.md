@@ -1,16 +1,17 @@
 # UAlganoid
-<ul>
 
-<li>Projeto desenvolvido no âmbito da disciplina de [Laboratório de Programação](https://academico.ualg.pt/netpa/doc?codeDiscip=14781068&anoLectivo=202425&codInstituic=9&stage=FichaUnidadeCurricular&_event=publicacaoFUC&docIsAttachment=false) do [Curso de Engenharia Informática](https://www.ualg.pt/curso/1478/plano) da [Universidade do Algarve](https://www.ualg.pt/).</li>
 
-<li>Ao longo do projeto aplicámos vários conceitos sobre Programação Orientada a Objetos.</li>
+- Projeto desenvolvido no âmbito da disciplina de [Laboratório de Programação](https://academico.ualg.pt/netpa/doc?codeDiscip=14781068&anoLectivo=202425&codInstituic=9&stage=FichaUnidadeCurricular&_event=publicacaoFUC&docIsAttachment=false) do [Curso de Engenharia Informática](https://www.ualg.pt/curso/1478/plano) da [Universidade do Algarve](https://www.ualg.pt/)
 
-<li>O nosso jogo é suposto ser algo semelhante ao jogo antigo [Arkanoid](https://en.wikipedia.org/wiki/Arkanoid).</li>
 
-<li>Todas as texturas e animações adicionadas ao jogo foram criadas por nós.</li>
-<li>Os sons do jogo tratam-se de misturas de sons retirados de outros jogos.</li>
-<li>Todo o jogo foi desenvolvido segundo a largura dos blocos, o que o torna dinâmico para qualquer resolução que o utilizador escolha, isto é, o tamanho de todos os objetos, textos e imagens é ajustado de acordo com a resolução escolhida.</li>
-</ul>
+- Ao longo do projeto aplicámos vários conceitos sobre Programação Orientada a Objetos.</li>
+
+- O nosso jogo é suposto ser algo semelhante ao jogo antigo [Arkanoid](https://en.wikipedia.org/wiki/Arkanoid).
+
+- Todas as texturas e animações adicionadas ao jogo foram criadas por nós.</li>
+- Os sons do jogo tratam-se de misturas de sons retirados de outros jogos.</li>
+- Todo o jogo foi desenvolvido segundo a largura dos blocos, o que o torna dinâmico para qualquer resolução que o utilizador escolha, isto é, o tamanho de todos os objetos, textos e imagens é ajustado de acordo com a resolução escolhida.</li>
+
 
 ## Jogabilidade
 
@@ -102,7 +103,3 @@ Estes "cheats" permitem que o jogador salte um ou vários níveis.
 <li>As teclas '1', '2', '3', '4' e '5' permitem que o jogador salte para qualquer um desses níveis.</li>
 <li>A tecla 'w' permite que o utilizador ganhe instantaneamente o nível em questão.
 </ul>
-
-
-
-
