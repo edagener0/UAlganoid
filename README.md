@@ -1,17 +1,23 @@
 # UAlganoid
+<img src="https://github.com/user-attachments/assets/2e87da23-f92e-46d5-ac3c-1d82fc299f75" width="25%" height="25%">
+<img src="https://github.com/user-attachments/assets/305431fd-b859-4e08-98c7-78e88c91ec83" width="25%" height="25%">
+<img src="https://github.com/user-attachments/assets/3f8dbca2-d0e5-44f0-945c-143c9751a220" width="25%" height="25%">
+
 ## Tabela de Conteúdos
 1. [Acerca do Projeto](#Acerca-do-Projeto)
 2. [Jogabilidade](#Jogabilidade)
-    1. [Vidas](#Vidas)
-    2. [Movimento do Pad](#Movimento-do-Pad)
-    3. [A Bola](#A-Bola)
-    4. [Powerups](#Powerups)
-    5. [Objetivo](#Objetivo)
-3. [Cheat Codes](#Cheat-Codes)
+    1. [Ativar e Desativar texturas](#Ativar-e-Desativar-texturas)
+    2. [Blocos](#Blocos)
+    3. [Vidas](#Vidas)
+    4. [Movimento do Pad](#Movimento-do-Pad)
+    5. [A Bola](#A-Bola)
+    6. [Powerups](#Powerups)
+    7. [Objetivo](#Objetivo)
+4. [Cheat Codes](#Cheat-Codes)
     1. [Powerups](#Invocar-Powerups)
     2. [Mapas](#Mapas)
-4. [Executar o jogo a partir do souce code](#Executar-o-jogo-a-partir-do-source-code)
-5. [Executar o jogo sem source code](#Executar-o-jogo-sem-source-code)
+5. [Executar o jogo a partir do souce code](#Executar-o-jogo-a-partir-do-source-code)
+6. [Executar o jogo sem source code](#Executar-o-jogo-sem-source-code)
     1. [No Windows](#No-Windows)
     2. [No Linux](#No-Linux)
 ## Acerca do Projeto
@@ -29,7 +35,8 @@
 
 
 ## Jogabilidade
-
+### Ativar e Desativar texturas
+- É possível ativar e desativar as texturas do jogo na tecla **i**
 ### Blocos
 - Existem 9 tipos de blocos no jogo que têm diferentes vidas e dão diferentes pontuações ao jogador quando destruidos.
 - Todos os blocos têm uma vida à exceção dos blocos prateados e dos blocos dourados.
