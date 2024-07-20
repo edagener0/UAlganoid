@@ -261,81 +261,81 @@ void setup()
   frameRate(FRAME_RATE);
   noStroke();
   
-  fonte = loadFont("Fontes_Texto/title.vlw");
+  fonte = loadFont("data/Fontes_Texto/title.vlw");
   
-  type_1_block = loadImage("blocos/blocos_normais/type_1_block.png");
-  type_2_block = loadImage("blocos/blocos_normais/type_2_block.png");
-  type_3_block = loadImage("blocos/blocos_normais/type_3_block.png");
-  type_4_block = loadImage("blocos/blocos_normais/type_4_block.png");
-  type_5_block = loadImage("blocos/blocos_normais/type_5_block.png");
-  type_6_block = loadImage("blocos/blocos_normais/type_6_block.png");
-  type_7_block = loadImage("blocos/blocos_normais/type_7_block.png");
+  type_1_block = loadImage("data/blocos/blocos_normais/type_1_block.png");
+  type_2_block = loadImage("data/blocos/blocos_normais/type_2_block.png");
+  type_3_block = loadImage("data/blocos/blocos_normais/type_3_block.png");
+  type_4_block = loadImage("data/blocos/blocos_normais/type_4_block.png");
+  type_5_block = loadImage("data/blocos/blocos_normais/type_5_block.png");
+  type_6_block = loadImage("data/blocos/blocos_normais/type_6_block.png");
+  type_7_block = loadImage("data/blocos/blocos_normais/type_7_block.png");
   
   for (int i = 0; i < 12; i++)
   {
-    type_8_block[i] = loadImage(String.format("blocos/blocos_prateados/bloco%d.png", i));
+    type_8_block[i] = loadImage(String.format("data/blocos/blocos_prateados/bloco%d.png", i));
   }
   
   for (int i = 12; i < 20; i++)
   {
-    type_8_block[i] = loadImage("blocos/blocos_prateados/bloco0.png");
+    type_8_block[i] = loadImage("data/blocos/blocos_prateados/bloco0.png");
   }
   
   for (int i = 0; i < 12; i++)
   {
-    type_9_block[i] = loadImage(String.format("blocos/blocos_dourados/bloco%d.png", i));
+    type_9_block[i] = loadImage(String.format("data/blocos/blocos_dourados/bloco%d.png", i));
   }
   
-  damaged_block = loadImage("blocos/block_damaged.png");
+  damaged_block = loadImage("data/blocos/block_damaged.png");
   
   for (int i = 12; i < 20; i++)
   {
-    type_9_block[i] = loadImage("blocos/blocos_dourados/bloco0.png");
+    type_9_block[i] = loadImage("data/blocos/blocos_dourados/bloco0.png");
   }
   
   for (int i = 0; i < bola_on_fire.length; i++)
   {
-    bola_on_fire[i] = loadImage(String.format("bola/bola_on_fire/%d.png", i));
+    bola_on_fire[i] = loadImage(String.format("data/bola/bola_on_fire/%d.png", i));
   }
   
   for (int i = 0; i < multiplier_image.length; i++)
   {
-    multiplier_image[i] = loadImage(String.format("powerups/x5/%d.png", i));
+    multiplier_image[i] = loadImage(String.format("data/powerups/x5/%d.png", i));
   }
   
-  coracao = loadImage("powerups/Life_Gainer/coracao_powerup.png");
-  imagem_bola = loadImage("bola/bola.png");
+  coracao = loadImage("data/powerups/Life_Gainer/coracao_powerup.png");
+  imagem_bola = loadImage("data/bola/bola.png");
 
-  imagem_background = loadImage("backgrounds/main_background.png");
+  imagem_background = loadImage("data/backgrounds/main_background.png");
   imagem_background.resize(LARGURA_JANELA, ALTURA_JANELA);
 
-  imagem_background_on_fire = loadImage("backgrounds/background_on_fire.png");
+  imagem_background_on_fire = loadImage("data/backgrounds/background_on_fire.png");
   imagem_background_on_fire.resize(LARGURA_JANELA, ALTURA_JANELA);
 
-  imagem_header = loadImage("backgrounds/header.png");
+  imagem_header = loadImage("data/backgrounds/header.png");
   imagem_header.resize(LARGURA_JANELA, ALTURA_HEADER);
-  fireball_imagem = loadImage("powerups/Fireball/fireball.png");
+  fireball_imagem = loadImage("data/powerups/Fireball/fireball.png");
 
-  borda = loadImage("border/border.png");
+  borda = loadImage("data/border/border.png");
   borda.resize(LARGURA_JANELA, ALTURA_JANELA);
 
-  bola_multiplier_imagem = loadImage("powerups/Bola_Multiplier/bola_multiplier.png");
+  bola_multiplier_imagem = loadImage("data/powerups/Bola_Multiplier/bola_multiplier.png");
 
-  imagem_pad = loadImage("pad/pad.png");
+  imagem_pad = loadImage("data/pad/pad.png");
 
 
-  music = new SoundFile(this, "game_sounds/music.mp3");
-  VICTORY = new SoundFile(this, "game_sounds/victory.wav");
-  DEFEAT = new SoundFile(this, "game_sounds/defeat.wav");
-  pad_bounce = new SoundFile(this, "pad/efeitos_sonoros/pad.wav");
-  passed_level = new SoundFile(this, "game_sounds/passed_level.wav");
-  picked_up_fireball = new SoundFile(this, "/powerups/Fireball/efeitos_sonoros/powerup_fire.wav");
-  picked_up_plus2balls = new SoundFile(this, "/powerups/Bola_Multiplier/efeitos_sonoros/powerup_plus2balls.wav");
-  picked_up_coracao = new SoundFile(this, "/powerups/Life_Gainer/efeitos_sonoros/coracao_sound.wav");
-  picked_up_x5 = new SoundFile(this, "/powerups/x5/efeitos_sonoros/x5.wav");
+  music = new SoundFile(this, "data/game_sounds/music.mp3");
+  VICTORY = new SoundFile(this, "data/game_sounds/victory.wav");
+  DEFEAT = new SoundFile(this, "data/game_sounds/defeat.wav");
+  pad_bounce = new SoundFile(this, "data/pad/efeitos_sonoros/pad.wav");
+  passed_level = new SoundFile(this, "data/game_sounds/passed_level.wav");
+  picked_up_fireball = new SoundFile(this, "data/powerups/Fireball/efeitos_sonoros/powerup_fire.wav");
+  picked_up_plus2balls = new SoundFile(this, "data/powerups/Bola_Multiplier/efeitos_sonoros/powerup_plus2balls.wav");
+  picked_up_coracao = new SoundFile(this, "data/powerups/Life_Gainer/efeitos_sonoros/coracao_sound.wav");
+  picked_up_x5 = new SoundFile(this, "data/powerups/x5/efeitos_sonoros/x5.wav");
 
-  block_hit = new SoundFile(this, "blocos/block_hit.wav");
-  border_hit = new SoundFile(this, "border/hit.wav");
+  block_hit = new SoundFile(this, "data/blocos/block_hit.wav");
+  border_hit = new SoundFile(this, "data/border/hit.wav");
 
 
   pad = new Pad(POSICAO_X_PAD, POSICAO_Y_PAD, LARGURA_PAD, ALTURA_PAD, RED);
