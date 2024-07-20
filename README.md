@@ -18,16 +18,35 @@
 - Projeto desenvolvido no âmbito da disciplina de [Laboratório de Programação](https://academico.ualg.pt/netpa/doc?codeDiscip=14781068&anoLectivo=202425&codInstituic=9&stage=FichaUnidadeCurricular&_event=publicacaoFUC&docIsAttachment=false) do [Curso de Engenharia Informática](https://www.ualg.pt/curso/1478/plano) da [Universidade do Algarve](https://www.ualg.pt/)
 
 
-- Ao longo do projeto aplicámos vários conceitos sobre Programação Orientada a Objetos.</li>
+- Ao longo do projeto aplicámos vários conceitos sobre Programação Orientada a Objetos.
 
 - O nosso jogo é suposto ser algo semelhante ao jogo clássico [Arkanoid](https://en.wikipedia.org/wiki/Arkanoid).
 
-- Todas as texturas e animações adicionadas ao jogo foram criadas por nós.</li>
-- Os sons do jogo tratam-se de misturas de sons retirados de outros jogos.</li>
-- Todo o jogo foi desenvolvido segundo a largura dos blocos, o que o torna dinâmico para qualquer resolução que o utilizador escolha, isto é, o tamanho de todos os objetos, textos e imagens é ajustado de acordo com a resolução escolhida.</li>
+- Todas as texturas e animações adicionadas ao jogo foram criadas por nós.
+- Os sons do jogo tratam-se de misturas de sons retirados de outros jogos.
+- Todo o jogo foi desenvolvido segundo a largura dos blocos, o que o torna dinâmico para qualquer resolução que o utilizador escolha, isto é, o tamanho de todos os objetos, textos e imagens é ajustado de acordo com a resolução escolhida.
+- Para facilitar a geração de níveis do jogo foi criado um script em [Python](https://www.python.org/).
 
 
 ## Jogabilidade
+
+### Blocos
+- Existem 9 tipos de blocos no jogo que têm diferentes vidas e dão diferentes pontuações ao jogador quando destruidos.
+- Todos os blocos têm uma vida à exceção dos blocos prateados e dos blocos dourados.
+- Os blocos prateados têm duas vidas.
+- Os blocos dourados são indestrutíveis a menos que a bola possua o powerup **Fireball**, nesse caso são necessários dois hits para destruir esse bloco.
+
+    |   Tipo   |  Vida    | Vida com Fireball | Pontuação| Cor   |
+    |----------|----------|------------------|----------|--------|
+    | 1        | 1        | 1              | 50       | White    |
+    | 2        | 1        | 1              | 60       | Orange   |
+    | 3        | 1        | 1              | 70       | Cyan     |
+    | 4        | 1        | 1              | 80       | Green    |
+    | 5        | 1        | 1              | 90       | Red      |
+    | 6        | 1        | 1              | 100      | Blue     |
+    | 7        | 1        | 1              | 110      | Purple   |
+    | 8        | 2        | 1              | 200      | Silver   |
+    | 9        | -1       | 2              | 1000     | Gold     |
 
 ### Vidas
 
@@ -39,9 +58,9 @@
 ### Movimento do Pad
 
 
-- Seta para a direita movimenta o pad para a direita
-- Seta para a esquerda movimenta o pad para a esquerda
-- Barra de espaços inicializa o jogo quando a bola está parada em cima do pad
+- Seta para a direita movimenta o pad para a direita.
+- Seta para a esquerda movimenta o pad para a esquerda.
+- Barra de espaços inicializa o jogo quando a bola está parada em cima do pad.
 
 
 ### A Bola
@@ -64,16 +83,13 @@ Para apanhar o powerup basta fazer com que o powerup colida com o Pad.
     - Invoca três bola novas por cada bola presente no jogo.
     - O jogador só perde uma vida se todas as bolas saírem do ecrã.
 
-
-
 - LifeAdder
     - Acrescenta uma vida às vidas totais do jogador.
     - Se o jogador já tiver as vidas máximas, neste caso três, nenhuma vida é acrescentada.
 
 
 - ScoreMultiplier
-
-    - Multiplica os scores obtidos por cinco e soma à pontuação total do jogador
+    - Multiplica os scores obtidos por cinco e soma à pontuação total do jogador.
 
 
 ### Objetivo
