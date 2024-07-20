@@ -1,12 +1,26 @@
 # UAlganoid
-
-
+## Tabela de Conteúdos
+1. [Acerca do Projeto](#Acerca-do-Projeto)
+2. [Jogabilidade](#Jogabilidade)
+    1. [Vidas](#Vidas)
+    2. [Movimento do Pad](#Movimento-do-Pad)
+    3. [A Bola](#A-Bola)
+    4. [Powerups](#Powerups)
+    5. [Objetivo](#Objetivo)
+3. [Cheat Codes](#Cheat-Codes)
+    1. [Powerups](#Powerups)
+    2. [Mapas](#Mapas)
+4. [Executar o jogo a partir do souce code](#Executar-o-jogo-a-partir-do-source-code)
+5. [Executar o jogo sem source code](#Executar-o-jogo-sem-source-code)
+    1. [No Windows](#No-Windows)
+    2. [No Linux](#No-Linux)
+## Acerca do Projeto
 - Projeto desenvolvido no âmbito da disciplina de [Laboratório de Programação](https://academico.ualg.pt/netpa/doc?codeDiscip=14781068&anoLectivo=202425&codInstituic=9&stage=FichaUnidadeCurricular&_event=publicacaoFUC&docIsAttachment=false) do [Curso de Engenharia Informática](https://www.ualg.pt/curso/1478/plano) da [Universidade do Algarve](https://www.ualg.pt/)
 
 
 - Ao longo do projeto aplicámos vários conceitos sobre Programação Orientada a Objetos.</li>
 
-- O nosso jogo é suposto ser algo semelhante ao jogo antigo [Arkanoid](https://en.wikipedia.org/wiki/Arkanoid).
+- O nosso jogo é suposto ser algo semelhante ao jogo clássico [Arkanoid](https://en.wikipedia.org/wiki/Arkanoid).
 
 - Todas as texturas e animações adicionadas ao jogo foram criadas por nós.</li>
 - Os sons do jogo tratam-se de misturas de sons retirados de outros jogos.</li>
@@ -16,90 +30,111 @@
 ## Jogabilidade
 
 ### Vidas
-<ul>
-<li>O máximo de vidas que o jogador pode ter são três.</li>
-<li>O jogador começa com o número máximo de vidas..</li>
-<li>Se a bola sair por baixo da tela o utilizador perde uma vida.</li>
-</ul>
+
+- O máximo de vidas que o jogador pode ter são três.
+- O jogador começa com o número máximo de vidas.
+- Se a bola sair por baixo da tela o utilizador perde uma vida.
+
 
 ### Movimento do Pad
 
-<ul>
-<li>Seta para a direita movimenta o pad para a direita</li>
-<li>Seta para a esquerda movimenta o pad para a esquerda</li>
-<li>Barra de espaços inicializa o jogo quando a bola está parada em cima do pad</li>
-</ul>
+
+- Seta para a direita movimenta o pad para a direita
+- Seta para a esquerda movimenta o pad para a esquerda
+- Barra de espaços inicializa o jogo quando a bola está parada em cima do pad
+
 
 ### A Bola
 
-<ul>
-<li>O movimento da bola depende do ângulo de colisão da bola com o pad. O sentido e intensidade do vetor velocidade aplicado na bola é calculado segundo uma regressão linear.</li>
-<li>Para efeitos da regressão linear definimos que se a bola bater no centro do Pad o ângulo do vetor velocidade é 0º. No caso de colidir com o canto direito do Pad o ângulo é de 45º. No caso de colidir com o canto esquerdo do Pad o ângulo é de -45º.</li>
-<li>Com as informações acerca desses três pontos de colisão é possível fazer uma regressão linear e definir os ângulos para todos os outros pontos de colisão.</li>
-</ul>
+- O movimento da bola depende do ângulo de colisão da bola com o pad. O sentido e intensidade do vetor velocidade aplicado na bola é calculado segundo uma regressão linear.
+- Para efeitos da regressão linear definimos que se a bola bater no centro do Pad o ângulo do vetor velocidade é 0º. No caso de colidir com o canto direito do Pad o ângulo é de 45º. No caso de colidir com o canto esquerdo do Pad o ângulo é de -45º.
+- Com as informações acerca desses três pontos de colisão é possível fazer uma regressão linear e definir os ângulos para todos os outros pontos de colisão.
+
 
 ### Powerups
 Há vários tipos de powerups no jogo. Há uma pequena chance de ser invocado um powerup aleatório aquando da destruição de um bloco.<br>
 Para apanhar o powerup basta fazer com que o powerup colida com o Pad.
-<ul>
 
-<li>Fireball</li>
 
-<ul>
-<li>Permite a destruição de todos os blocos com apenas uma colisão.</li> 
-<li>Esta permite também que os blocos de dourados se tornem destrutíveis, necessitando de duas colisões.</li>
-</ul>
+- Fireball
+    - Permite a destruição de todos os blocos com apenas uma colisão.
+    - Esta permite também que os blocos de dourados se tornem destrutíveis, necessitando de duas colisões.
 
-<br>
+- BallMultiplier
+    - Invoca três bola novas por cada bola presente no jogo.
+    - O jogador só perde uma vida se todas as bolas saírem do ecrã.
 
-<li>BallMultiplier</li>
-<ul>
-<li>Invoca três bola novas por cada bola presente no jogo.</li>
-<li>O jogador só perde uma vida se todas as bolas saírem do ecrã.</li>
-</ul>
 
-<br>
 
-<li>LifeAdder</li>
-<ul>
-<li>Acrescenta uma vida às vidas totais do jogador.</li>
-<li>Se o jogador já tiver as vidas máximas, neste caso três, nenhuma vida é acrescentada.</li>
-</ul>
+- LifeAdder
+    - Acrescenta uma vida às vidas totais do jogador.
+    - Se o jogador já tiver as vidas máximas, neste caso três, nenhuma vida é acrescentada.
 
-<br>
 
-<li>ScoreMultiplier</li>
-<ul>
-<li>Multiplica os scores obtidos por cinco e soma à pontuação total do jogador.</li>
-</ul>
-</ul>
+- ScoreMultiplier
+
+    - Multiplica os scores obtidos por cinco e soma à pontuação total do jogador
+
 
 ### Objetivo
-<ul>
-<li>Tal como no Arkanoid clássico o objetivo é fazer com que a bola ressalte no pad e bata nos blocos até partir todos os blocos.</li>
-<li>Ao partir todos os blocos de um nível passamos para o próximo nível automaticamente.</li>
-<li>Se o jogador conseguir completar os 25 níveis com sucesso ganha o jogo e aparece uma tela de vitória.</li> 
-<li>Se por acaso o jogador perder todas as vidas então aparece uma tela de derrota.</li> 
-<li>Após o fim de um jogo a única forma de iniciar o jogo é voltando a executar o jogo.</li>
-</ul>
+
+- Tal como no Arkanoid clássico o objetivo é fazer com que a bola ressalte no pad e bata nos blocos até partir todos os blocos.
+- Ao partir todos os blocos de um nível passamos para o próximo nível automaticamente.
+- Se o jogador conseguir completar os 25 níveis com sucesso ganha o jogo e aparece uma tela de vitória. 
+- Se por acaso o jogador perder todas as vidas então aparece uma tela de derrota. 
+- Após o fim de um jogo a única forma de iniciar o jogo é voltando a executar o jogo.
 
 ## Cheat Codes
 
-Para efeitos de teste desenvolvemos alguns comandos de "cheats".
+- Para efeitos de teste desenvolvemos alguns comandos de "cheats".
 
 ### Powerups 
 Estes "cheats" invocam um powerup específico por diretamente acima do pad.
-<ul>
-<li>A tecla 'f' invoca uma Fireball.</li>
-<li>A tecla 'l' invoca um LifeAdder.</li>
-<li>A tecla 's' invoca um ScoreMultiplier</li>
-<li>A tecla 'm' invoca um BallMultiplier</li>
-</ul>
+
+- A tecla 'f' invoca uma Fireball.
+- A tecla 'l' invoca um LifeAdder.
+- A tecla 's' invoca um ScoreMultiplier
+- A tecla 'm' invoca um BallMultiplier
 
 ### Mapas
 
 Estes "cheats" permitem que o jogador salte um ou vários níveis.
-<ul>
-<li>As teclas '1', '2', '3', '4' e '5' permitem que o jogador salte para qualquer um desses níveis.</li>
-<li>A tecla 'w' permite que o utilizador ganhe instantaneamente o nível em questão.
-</ul>
+
+- As teclas '1', '2', '3', '4' e '5' permitem que o jogador salte para qualquer um desses níveis.
+- A tecla 'w' permite que o utilizador ganhe instantaneamente o nível em questão.
+
+## Executar o jogo a partir do source code
+
+1. Transferir e instalar o [Processing IDE](https://processing.org/download).
+2. Transferir e instalar o [Java Development Kit](https://www.oracle.com/java/technologies/downloads/).
+3. Clonar o [repositório](https://github.com/edagener0/UAlganoid.git), transferindo diretamente do Github como ficheiro Zip ou, caso tenha o git instalado no seu sistema pode utilizar o comando
+```
+git clone https://github.com/edagener0/UAlganoid.git
+```
+4. Abrir a pasta que transferiu e abrir o ficheiro principal do programa "UAlganoid.pde" no processing, o que irá abrir todo o projeto no IDE.
+5. Por fim, instalar a biblioteca de som no Processing IDE.
+    1. Abrir o processing IDE
+    2. Na barra de ferramentas colocar o rato sobre o "Sketch" e esperar abrir um dropdown menu.
+    3. Em seguida colocar o rato sobre "Import Libraries" e esperar abrir outro dropdown menu.
+    4. Clicar em "Manage Libraries".
+    5. Na barra de pesquisa filtar por "Sound" e instalar a biblioteca "Sound" cujo autor é [The Processing Foundation](https://processingfoundation.org/).
+6. O projeto está pronto a executar e a ser modificado à sua vontade. Divirta-se.
+
+## Executar o jogo sem source code
+
+Pode ser necessário instalar o [Java Development Kit](https://www.oracle.com/java/technologies/downloads/).
+### No Windows
+
+1. Transferir a [Windows Release](https://github.com/edagener0/UAlganoid/releases/tag/UAlganoid-windows64).
+2. Descomprimir o ficheiro.
+3. Executar o ficheiro executável dentro da pasta.
+
+### No Linux
+1. Transferir a [Linux Release](https://github.com/edagener0/UAlganoid/releases/tag/UAlganoid-Linux)
+2. Descomprimir o ficheiro.
+3. Executar o ficheiro shell script dentro da pasta.
+```
+bash UAlganoid-main
+```
+
+
