@@ -8,7 +8,7 @@
     4. [Powerups](#Powerups)
     5. [Objetivo](#Objetivo)
 3. [Cheat Codes](#Cheat-Codes)
-    1. [Powerups](#Powerups)
+    1. [Powerups](#Invocar-Powerups)
     2. [Mapas](#Mapas)
 4. [Executar o jogo a partir do souce code](#Executar-o-jogo-a-partir-do-source-code)
 5. [Executar o jogo sem source code](#Executar-o-jogo-sem-source-code)
@@ -52,7 +52,7 @@
 
 
 ### Powerups
-Há vários tipos de powerups no jogo. Há uma pequena chance de ser invocado um powerup aleatório aquando da destruição de um bloco.<br>
+Há vários tipos de powerups no jogo. Há uma pequena chance de ser invocado um powerup aleatório aquando da destruição de um bloco.\
 Para apanhar o powerup basta fazer com que o powerup colida com o Pad.
 
 
@@ -88,20 +88,20 @@ Para apanhar o powerup basta fazer com que o powerup colida com o Pad.
 
 - Para efeitos de teste desenvolvemos alguns comandos de "cheats".
 
-### Powerups 
+### Invocar Powerups
 Estes "cheats" invocam um powerup específico por diretamente acima do pad.
 
-- A tecla 'f' invoca uma Fireball.
-- A tecla 'l' invoca um LifeAdder.
-- A tecla 's' invoca um ScoreMultiplier
-- A tecla 'm' invoca um BallMultiplier
+- A tecla **f** invoca uma Fireball.
+- A tecla **l** invoca um LifeAdder.
+- A tecla **s** invoca um ScoreMultiplier
+- A tecla **m** invoca um BallMultiplier
 
 ### Mapas
 
 Estes "cheats" permitem que o jogador salte um ou vários níveis.
 
-- As teclas '1', '2', '3', '4' e '5' permitem que o jogador salte para qualquer um desses níveis.
-- A tecla 'w' permite que o utilizador ganhe instantaneamente o nível em questão.
+- As teclas **1**, **2**, **3**, **4** e **5** permitem que o jogador salte para qualquer um desses níveis.
+- A tecla *w* permite que o utilizador ganhe instantaneamente o nível em questão.
 
 ## Executar o jogo a partir do source code
 
@@ -111,13 +111,13 @@ Estes "cheats" permitem que o jogador salte um ou vários níveis.
 ```
 git clone https://github.com/edagener0/UAlganoid.git
 ```
-4. Abrir a pasta que transferiu e abrir o ficheiro principal do programa "UAlganoid.pde" no processing, o que irá abrir todo o projeto no IDE.
+4. Abrir a pasta que transferiu e abrir o ficheiro principal do programa **UAlganoid.pde** no processing, o que irá abrir todo o projeto no IDE.
 5. Por fim, instalar a biblioteca de som no Processing IDE.
     1. Abrir o processing IDE
-    2. Na barra de ferramentas colocar o rato sobre o "Sketch" e esperar abrir um dropdown menu.
-    3. Em seguida colocar o rato sobre "Import Libraries" e esperar abrir outro dropdown menu.
-    4. Clicar em "Manage Libraries".
-    5. Na barra de pesquisa filtar por "Sound" e instalar a biblioteca "Sound" cujo autor é [The Processing Foundation](https://processingfoundation.org/).
+    2. Na barra de ferramentas colocar o rato sobre o **Sketch** e esperar abrir um dropdown menu.
+    3. Em seguida colocar o rato sobre **Import Libraries** e esperar abrir outro dropdown menu.
+    4. Clicar em **Manage Libraries**.
+    5. Na barra de pesquisa filtar por **Sound** e instalar a biblioteca **Sound** cujo autor é [The Processing Foundation](https://processingfoundation.org/).
 6. O projeto está pronto a executar e a ser modificado à sua vontade. Divirta-se.
 
 ## Executar o jogo sem source code
